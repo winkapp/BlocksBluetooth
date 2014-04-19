@@ -25,6 +25,8 @@
 		7C788EFE190328910032FE4B /* PeripheralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C788EFA190328910032FE4B /* PeripheralViewController.m */; };
 		7C788F02190328AC0032FE4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C788F00190328AC0032FE4B /* Main.storyboard */; };
 		7C788F05190329330032FE4B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5F03EA1902E43300238DA5 /* CoreBluetooth.framework */; };
+		7C788F0919033AA80032FE4B /* AdvertisingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C788F0819033AA80032FE4B /* AdvertisingViewController.m */; };
+		7C788F1019033C1B0032FE4B /* CBPeripheralManager+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,10 @@
 		7C788EFA190328910032FE4B /* PeripheralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralViewController.m; sourceTree = "<group>"; };
 		7C788EFF190328A70032FE4B /* PeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralsViewController.h; sourceTree = "<group>"; };
 		7C788F01190328AC0032FE4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7C788F0719033AA80032FE4B /* AdvertisingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertisingViewController.h; sourceTree = "<group>"; };
+		7C788F0819033AA80032FE4B /* AdvertisingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisingViewController.m; sourceTree = "<group>"; };
+		7C788F0E19033C1B0032FE4B /* CBPeripheralManager+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheralManager+Debug.h"; sourceTree = "<group>"; };
+		7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheralManager+Debug.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,8 @@
 				7C788EF5190328910032FE4B /* BLEManager.m */,
 				7C788EF6190328910032FE4B /* CBCentralManager+Debug.h */,
 				7C788EF7190328910032FE4B /* CBCentralManager+Debug.m */,
+				7C788F0E19033C1B0032FE4B /* CBPeripheralManager+Debug.h */,
+				7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				7C788F00190328AC0032FE4B /* Main.storyboard */,
+				7C788F0A19033AAD0032FE4B /* Peripheral */,
 				7C788F061903296A0032FE4B /* Central */,
 			);
 			name = "View Controllers";
@@ -193,6 +202,15 @@
 				7C788EFA190328910032FE4B /* PeripheralViewController.m */,
 			);
 			name = Central;
+			sourceTree = "<group>";
+		};
+		7C788F0A19033AAD0032FE4B /* Peripheral */ = {
+			isa = PBXGroup;
+			children = (
+				7C788F0719033AA80032FE4B /* AdvertisingViewController.h */,
+				7C788F0819033AA80032FE4B /* AdvertisingViewController.m */,
+			);
+			name = Peripheral;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +313,8 @@
 				7C5BFB461903284A0063A5C1 /* AppDelegate.m in Sources */,
 				7C788EFD190328910032FE4B /* PeripheralsViewController.m in Sources */,
 				7C788EFE190328910032FE4B /* PeripheralViewController.m in Sources */,
+				7C788F0919033AA80032FE4B /* AdvertisingViewController.m in Sources */,
+				7C788F1019033C1B0032FE4B /* CBPeripheralManager+Debug.m in Sources */,
 				7C5BFB421903284A0063A5C1 /* main.m in Sources */,
 				7C788EFC190328910032FE4B /* CBCentralManager+Debug.m in Sources */,
 				7C788EFB190328910032FE4B /* BLEManager.m in Sources */,

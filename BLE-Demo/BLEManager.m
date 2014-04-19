@@ -8,14 +8,20 @@
 
 #import "BLEManager.h"
 #import "CBCentralManager+Debug.h"
+#import "CBPeripheralManager+Debug.h"
 
 NSString * const BLEDidDiscoverPeripheralNotification = @"BLEDidDiscoverPeripheralNotification";
 NSString * const BLEDidConnectPeripheralNotification = @"BLEDidConnectPeripheralNotification";
 NSString * const BLEDidDiscoverServicesNotification = @"BLEDidDiscoverServicesNotification";
 NSString * const BLEDidDiscoverCharacteristicsNotification = @"BLEDidDiscoverCharacteristicsNotification";
+NSString * const BLEDidStartAdvertisingNotification = @"BLEDidStartAdvertisingNotification";
+
+static NSString * const BLEDemoServiceUUID = @"7846ED88-7CD9-495F-AC2A-D34D245C9FB6";
+static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA083BB9539";
 
 
-@interface BLEManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface BLEManager () <CBCentralManagerDelegate, CBPeripheralDelegate, CBPeripheralManagerDelegate>
+@property (nonatomic, strong) CBService *demoService;
 @end
 
 
@@ -36,12 +42,86 @@ NSString * const BLEDidDiscoverCharacteristicsNotification = @"BLEDidDiscoverCha
 {
     self = [super init];
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
     self.peripherals = [NSMutableArray new];
     return self;
 }
 
+#pragma mark - Peripheral Commands
 
-#pragma mark - Control
+- (void)startAdvertising
+{
+    CBUUID *demoCharateristicUUID = [CBUUID UUIDWithString:BLEDemoCharateristicUUID];
+    CBMutableCharacteristic *characteristic = [[CBMutableCharacteristic alloc] initWithType:demoCharateristicUUID
+                                                                                 properties:CBCharacteristicPropertyRead
+                                                                                      value:nil
+                                                                                permissions:CBAttributePermissionsReadable];
+
+    CBUUID *demoServiceUUID = [CBUUID UUIDWithString:BLEDemoServiceUUID];
+    CBMutableService *service = [[CBMutableService alloc] initWithType:demoServiceUUID primary:YES];
+    service.characteristics = @[characteristic];
+
+    [self.peripheralManager addService:service];
+    self.demoService = service;
+}
+
+- (void)stopAdvertising
+{
+    [self.peripheralManager stopAdvertising];
+}
+
+#pragma mark - Peripheral Manager Delegate
+
+- (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
+{
+    NSLog(@"peripheralManagerDidUpdateState: %@", peripheral.stateString);
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
+{
+    if (error) {
+        NSLog(@"Error publishing service: %@", [error localizedDescription]);
+        return;
+    }
+    
+    NSLog(@"peripheralManagerDidAddService: %@", service);
+
+    [self.peripheralManager startAdvertising:@{
+                                               CBAdvertisementDataServiceUUIDsKey : @[service.UUID],
+                                               CBAdvertisementDataLocalNameKey : @"BLE Demo",
+                                               }];
+}
+
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error
+{
+    if (error) {
+        NSLog(@"Error advertising: %@", [error localizedDescription]);
+        return;
+    }
+
+    NSLog(@"peripheralManagerDidStartAdvertising: %@", peripheral);
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidStartAdvertisingNotification object:peripheral];
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
+{
+    NSLog(@"peripheralManagerDidReceiveReadRequest: %@", request);
+
+    CBCharacteristic *characteristic = [self.demoService.characteristics firstObject];
+    
+    if ([request.characteristic.UUID isEqual:characteristic.UUID]) {
+        if (request.offset > characteristic.value.length) {
+            [self.peripheralManager respondToRequest:request withResult:CBATTErrorInvalidOffset];
+            return;
+        }
+        
+        request.value = [characteristic.value subdataWithRange:NSMakeRange(request.offset, characteristic.value.length - request.offset)];
+        [self.peripheralManager respondToRequest:request withResult:CBATTErrorSuccess];
+    }
+}
+
+
+#pragma mark - Central Commands
 
 - (void)startScan
 {
