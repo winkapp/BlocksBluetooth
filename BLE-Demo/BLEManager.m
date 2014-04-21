@@ -151,9 +151,10 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"Discovered %@", peripheral);
-    [self.peripherals addObject:peripheral];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidDiscoverPeripheralNotification object:peripheral];
+    if (![self.peripherals containsObject:peripheral]) {
+        [self.peripherals addObject:peripheral];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidDiscoverPeripheralNotification object:peripheral];
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
