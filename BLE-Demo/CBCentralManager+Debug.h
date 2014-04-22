@@ -11,6 +11,6 @@
 
 @interface CBCentralManager (Debug)
 
-- (NSString *)stateString;
+@property (nonatomic, copy, readonly) NSString *stateString;
 
 @end

@@ -163,12 +163,13 @@
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect didDisconnect:(CBPeripheralBlock)didDisconnect
 {
     if (self.delegate != self) {
         self.delegate = self;
     }
     peripheral.didConnect = didConnect;
+    peripheral.didDisconnect = didDisconnect;
     [self connectPeripheral:peripheral options:options];
 }
 

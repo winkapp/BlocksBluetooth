@@ -9,10 +9,14 @@
 #import "PeripheralViewController.h"
 #import "CBPeripheral+Blocks.h"
 #import "CBCentralManager+Blocks.h"
+#import "CBPeripheral+Debug.h"
+#import "CharacteristicCell.h"
 
 
 @interface PeripheralViewController ()
-
+@property (nonatomic, weak) IBOutlet UILabel *identifierLabel;
+@property (nonatomic, weak) IBOutlet UILabel *RSSILabel;
+@property (nonatomic, weak) IBOutlet UILabel *stateLabel;
 @end
 
 
@@ -23,31 +27,79 @@
     [super viewDidLoad];
     
     self.title = self.peripheral.name;
+    self.identifierLabel.text = self.peripheral.identifier.UUIDString;
+    self.RSSILabel.text = [NSString stringWithFormat:@"RSSI: %@", self.peripheral.RSSI ?: @"--"];
+    self.stateLabel.text = @"Connecting";
+
 
     __weak typeof(self) weakSelf = self;
     [[CBCentralManager defaultManager] connectPeripheral:self.peripheral options:nil didConnect:^(CBPeripheral *peripheral, NSError *error) {
         
+        weakSelf.stateLabel.text = weakSelf.peripheral.stateString;
+        
+        // 1A. Read RSSI
+        [peripheral readRSSIWithDidUpdate:^(CBPeripheral *peripheral, NSError *error) {
+            weakSelf.RSSILabel.text = [NSString stringWithFormat:@"RSSI: %@", peripheral.RSSI ?: @"--"];
+        }];
+
+        // 1B. Discover Services
         [peripheral discoverServices:nil didDiscover:^(NSArray *services, NSError *error) {
             
             [weakSelf.tableView reloadData];
             
             for (CBService *service in services) {
+                
+                // 2A. Discover Characteristics
                 [peripheral discoverCharacteristics:nil forService:service didDiscover:^(NSArray *characteristics, NSError *error) {
-
-                    [self.tableView beginUpdates];
+                    [weakSelf.tableView beginUpdates];
                     NSUInteger index = [peripheral.services indexOfObject:service];
                     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
-                    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationTop];
-                    [self.tableView endUpdates];
+                    [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [weakSelf.tableView endUpdates];
+                    
+                    for (CBCharacteristic *characteristic in characteristics) {
+
+                        // 3A. Read Value For Characteristic
+                        [peripheral readValueForCharacteristic:characteristic didUpdate:^(CBCharacteristic *characteristic, NSError *error) {
+                            [weakSelf updateTableViewForCharacteristic:characteristic];
+                        }];
+                        
+                        // 3A. Discover Descriptors For Characteristic
+                        [peripheral discoverDescriptorsForCharacteristic:characteristic didDiscover:^(NSArray *descriptors, NSError *error) {
+                            [weakSelf updateTableViewForCharacteristic:characteristic];
+                        }];
+                    }
+                }];
+                
+                // 2B. Discover Included Services
+                [peripheral discoverIncludedServices:nil forService:service didDiscover:^(NSArray *services, NSError *error) {
+                    //TODO:
                 }];
             }
         }];
+        
+    } didDisconnect:^(CBPeripheral *peripheral, NSError *error) {
+        
+        weakSelf.stateLabel.text = weakSelf.peripheral.stateString;
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }];
 }
 
 - (void)dealloc
 {
     [[CBCentralManager defaultManager] cancelPeripheralConnection:self.peripheral didDisconnect:nil];
+}
+
+- (void)updateTableViewForCharacteristic:(CBCharacteristic *)characteristic
+{
+    [self.tableView beginUpdates];
+    CBService *service = characteristic.service;
+    CBPeripheral *peripheral = service.peripheral;
+    NSUInteger section = [peripheral.services indexOfObject:service];
+    NSUInteger row = [service.characteristics indexOfObject:characteristic];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
 }
 
 
@@ -77,12 +129,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
+    CharacteristicCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CharacteristicCell class]) forIndexPath:indexPath];
     CBService *service = self.peripheral.services[indexPath.section];
     CBCharacteristic *characteristic = service.characteristics[indexPath.row];
-    cell.textLabel.text = characteristic.UUID.UUIDString;
-    
+    cell.characteristic = characteristic;
     return cell;
 }
 

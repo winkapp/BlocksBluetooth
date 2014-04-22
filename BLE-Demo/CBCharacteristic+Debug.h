@@ -1,5 +1,5 @@
 //
-//  CBPeripheral+Debug.h
+//  CBCharacteristic+Debug.h
 //  BLE-Demo
 //
 //  Created by Joseph Lin on 4/22/14.
@@ -9,8 +9,8 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 
-@interface CBPeripheral (Debug)
+@interface CBCharacteristic (Debug)
 
-@property (nonatomic, copy, readonly) NSString *stateString;
+@property (nonatomic, copy, readonly) NSString *propertiesString;
 
 @end

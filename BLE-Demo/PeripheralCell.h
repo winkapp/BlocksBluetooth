@@ -14,5 +14,6 @@
 @interface PeripheralCell : UITableViewCell
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
+@property (nonatomic, strong) NSNumber *RSSI;
 
 @end

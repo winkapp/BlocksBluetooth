@@ -27,9 +27,33 @@
     
     self.nameLabel.text = peripheral.name ?: @"(Unknown)";
     self.stateLabel.text = peripheral.stateString;
-    self.RSSILabel.text = [NSString stringWithFormat:@"RSSI: %@", peripheral.RSSI ?: @"--"];
     self.servicesLabel.text = (peripheral.services) ? [NSString stringWithFormat:@"%d services", peripheral.services.count] : @"";
     self.identifierLabel.text = peripheral.identifier.UUIDString;
+    
+    switch (peripheral.state) {
+        case CBPeripheralStateDisconnected:
+            self.stateLabel.textColor = [UIColor colorWithRed:0.516 green:0.000 blue:0.006 alpha:1.000];
+            break;
+            
+        case CBPeripheralStateConnecting:
+            self.stateLabel.textColor = [UIColor colorWithRed:0.687 green:0.686 blue:0.001 alpha:1.000];
+            break;
+            
+        case CBPeripheralStateConnected:
+            self.stateLabel.textColor = [UIColor colorWithRed:0.251 green:0.502 blue:0.000 alpha:1.000];
+            break;
+            
+        default:
+            self.stateLabel.textColor = [UIColor darkTextColor];
+            break;
+    }
+}
+
+- (void)setRSSI:(NSNumber *)RSSI
+{
+    _RSSI = RSSI;
+    
+    self.RSSILabel.text = [NSString stringWithFormat:@"RSSI: %@", self.RSSI ?: @"--"];
 }
 
 @end

@@ -29,6 +29,8 @@
 		7C788F05190329330032FE4B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5F03EA1902E43300238DA5 /* CoreBluetooth.framework */; };
 		7C788F0919033AA80032FE4B /* AdvertisingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C788F0819033AA80032FE4B /* AdvertisingViewController.m */; };
 		7C788F1019033C1B0032FE4B /* CBPeripheralManager+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */; };
+		7CA9A1561907271B00F7411F /* CharacteristicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9A1551907271B00F7411F /* CharacteristicCell.m */; };
+		7CA9A159190727D400F7411F /* CBCharacteristic+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9A158190727D400F7411F /* CBCharacteristic+Debug.m */; };
 		7CB881F919070FB400A4417A /* CBPeripheral+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB881F819070FB400A4417A /* CBPeripheral+Debug.m */; };
 		7CB881FC190714B600A4417A /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB881FB190714B600A4417A /* PeripheralCell.m */; };
 /* End PBXBuildFile section */
@@ -78,6 +80,10 @@
 		7C788F0819033AA80032FE4B /* AdvertisingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisingViewController.m; sourceTree = "<group>"; };
 		7C788F0E19033C1B0032FE4B /* CBPeripheralManager+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheralManager+Debug.h"; sourceTree = "<group>"; };
 		7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheralManager+Debug.m"; sourceTree = "<group>"; };
+		7CA9A1541907271B00F7411F /* CharacteristicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacteristicCell.h; sourceTree = "<group>"; };
+		7CA9A1551907271B00F7411F /* CharacteristicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacteristicCell.m; sourceTree = "<group>"; };
+		7CA9A157190727D400F7411F /* CBCharacteristic+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBCharacteristic+Debug.h"; sourceTree = "<group>"; };
+		7CA9A158190727D400F7411F /* CBCharacteristic+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBCharacteristic+Debug.m"; sourceTree = "<group>"; };
 		7CB881F719070FB400A4417A /* CBPeripheral+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Debug.h"; sourceTree = "<group>"; };
 		7CB881F819070FB400A4417A /* CBPeripheral+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+Debug.m"; sourceTree = "<group>"; };
 		7CB881FA190714B600A4417A /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
@@ -197,6 +203,8 @@
 				7C788F0F19033C1B0032FE4B /* CBPeripheralManager+Debug.m */,
 				7CB881F719070FB400A4417A /* CBPeripheral+Debug.h */,
 				7CB881F819070FB400A4417A /* CBPeripheral+Debug.m */,
+				7CA9A157190727D400F7411F /* CBCharacteristic+Debug.h */,
+				7CA9A158190727D400F7411F /* CBCharacteristic+Debug.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -220,6 +228,8 @@
 				7CB881FB190714B600A4417A /* PeripheralCell.m */,
 				7C788EF9190328910032FE4B /* PeripheralViewController.h */,
 				7C788EFA190328910032FE4B /* PeripheralViewController.m */,
+				7CA9A1541907271B00F7411F /* CharacteristicCell.h */,
+				7CA9A1551907271B00F7411F /* CharacteristicCell.m */,
 			);
 			name = Central;
 			sourceTree = "<group>";
@@ -333,11 +343,13 @@
 				7C5BFB461903284A0063A5C1 /* AppDelegate.m in Sources */,
 				7C788EFD190328910032FE4B /* PeripheralsViewController.m in Sources */,
 				7C3EB5B61906D5A500D74CF8 /* CBPeripheral+Blocks.m in Sources */,
+				7CA9A1561907271B00F7411F /* CharacteristicCell.m in Sources */,
 				7C788EFE190328910032FE4B /* PeripheralViewController.m in Sources */,
 				7C788F0919033AA80032FE4B /* AdvertisingViewController.m in Sources */,
 				7CB881F919070FB400A4417A /* CBPeripheral+Debug.m in Sources */,
 				7C788F1019033C1B0032FE4B /* CBPeripheralManager+Debug.m in Sources */,
 				7CB881FC190714B600A4417A /* PeripheralCell.m in Sources */,
+				7CA9A159190727D400F7411F /* CBCharacteristic+Debug.m in Sources */,
 				7C3EB5B31906C99800D74CF8 /* CBCentralManager+Blocks.m in Sources */,
 				7C5BFB421903284A0063A5C1 /* main.m in Sources */,
 				7C788EFC190328910032FE4B /* CBCentralManager+Debug.m in Sources */,

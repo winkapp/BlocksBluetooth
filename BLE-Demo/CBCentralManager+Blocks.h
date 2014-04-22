@@ -94,8 +94,9 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *  @param peripheral    The <code>CBPeripheral</code> to be connected.
  *  @param options       An optional dictionary specifying connection behavior options.
  *  @param didConnect    Called when centralManager:didConnectPeripheral: (with an peripheral) or didFailToConnectPeripheral: (with an error) is called. Set to nil afterward.
+ *  @param didDisconnect Called when centralManager:didDisconnectPeripheral:error: is called. Set to nil afterward.
  */
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect;
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect didDisconnect:(CBPeripheralBlock)didDisconnect;
 
 /**
  *  Block version of cancelPeripheralConnection:

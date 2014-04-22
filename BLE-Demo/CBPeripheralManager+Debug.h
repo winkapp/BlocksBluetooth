@@ -11,6 +11,6 @@
 
 @interface CBPeripheralManager (Debug)
 
-- (NSString *)stateString;
+@property (nonatomic, copy, readonly) NSString *stateString;
 
 @end

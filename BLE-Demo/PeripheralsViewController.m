@@ -16,6 +16,7 @@
 @interface PeripheralsViewController ()
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *scanButton;
 @property (nonatomic, strong) NSMutableArray *peripherals;
+@property (nonatomic, strong) NSMutableArray *RSSIs;
 @property (nonatomic, getter = isScanning) BOOL scanning;
 @end
 
@@ -27,6 +28,7 @@
     [super viewDidLoad];
     
     self.peripherals = [NSMutableArray new];
+    self.RSSIs = [NSMutableArray new];
 }
 
 
@@ -38,9 +40,10 @@
     
     if (!self.isScanning) {
         [self.peripherals removeAllObjects];
+        [self.RSSIs removeAllObjects];
         [self.tableView reloadData];
         [[CBCentralManager defaultManager] scanForPeripheralsWithServices:nil options:nil didDiscover:^(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
-            [weakSelf addPeripheral:peripheral];
+            [weakSelf addPeripheral:peripheral RSSI:RSSI];
         }];
         self.scanning = YES;
         self.scanButton.title = @"Stop";
@@ -52,12 +55,13 @@
     }
 }
 
-- (void)addPeripheral:(CBPeripheral *)peripheral
+- (void)addPeripheral:(CBPeripheral *)peripheral RSSI:(NSNumber *)RSSI
 {
     if (![self.peripherals containsObject:peripheral]) {
         [self.tableView beginUpdates];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.peripherals.count inSection:0];
         [self.peripherals addObject:peripheral];
+        [self.RSSIs addObject:RSSI];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView endUpdates];
     }
@@ -80,6 +84,7 @@
 {
     PeripheralCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PeripheralCell class]) forIndexPath:indexPath];
     cell.peripheral = self.peripherals[indexPath.row];
+    cell.RSSI = self.RSSIs[indexPath.row];
     return cell;
 }
 
@@ -88,11 +93,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    CBPeripheral *peripheral = self.peripherals[indexPath.row];
-    
+    PeripheralCell *cell = sender;
     PeripheralViewController *controller = segue.destinationViewController;
-    controller.peripheral = peripheral;
+    controller.peripheral = cell.peripheral;
 }
 
 @end
