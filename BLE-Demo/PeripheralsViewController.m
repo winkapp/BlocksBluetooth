@@ -13,6 +13,7 @@
 
 @interface PeripheralsViewController ()
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *scanButton;
+@property (nonatomic, strong) NSMutableArray *peripherals;
 @end
 
 
@@ -22,15 +23,27 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:BLEDidDiscoverPeripheralNotification object:nil];
+    self.peripherals = [NSMutableArray new];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDiscoverPeripheral:) name:BLEDidDiscoverPeripheralNotification object:nil];
 }
 
 
 #pragma mark -
 
-- (void)refresh
+- (void)didDiscoverPeripheral:(NSNotification *)notification
 {
-    [self.tableView reloadData];
+    CBPeripheral *peripheral = notification.object;
+    
+    if (![self.peripherals containsObject:peripheral]) {
+        [self.tableView beginUpdates];
+
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.peripherals.count inSection:0];
+        [self.peripherals addObject:peripheral];
+
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView endUpdates];
+    }
 }
 
 - (IBAction)scanButtonTapped:(id)sender
@@ -40,6 +53,8 @@
         self.scanButton.title = @"Rescan";
     }
     else {
+        [self.peripherals removeAllObjects];
+        [self.tableView reloadData];
         [[BLEManager sharedInstance] startScan];
         self.scanButton.title = @"Stop";
     }
@@ -55,14 +70,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [BLEManager sharedInstance].peripherals.count;
+    return self.peripherals.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    CBPeripheral *peripheral = [BLEManager sharedInstance].peripherals[indexPath.row];
+    CBPeripheral *peripheral = self.peripherals[indexPath.row];
     cell.textLabel.text = peripheral.name;
     cell.detailTextLabel.text = peripheral.identifier.UUIDString;
     return cell;
@@ -74,7 +89,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    CBPeripheral *peripheral = [BLEManager sharedInstance].peripherals[indexPath.row];
+    CBPeripheral *peripheral = self.peripherals[indexPath.row];
     
     PeripheralViewController *controller = segue.destinationViewController;
     controller.peripheral = peripheral;

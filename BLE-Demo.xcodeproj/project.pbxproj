@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C3EB5B31906C99800D74CF8 /* CBCentralManager+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EB5B21906C99800D74CF8 /* CBCentralManager+Blocks.m */; };
+		7C3EB5B61906D5A500D74CF8 /* CBPeripheral+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EB5B51906D5A500D74CF8 /* CBPeripheral+Blocks.m */; };
 		7C5BFB381903284A0063A5C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5F03811902E2A700238DA5 /* Foundation.framework */; };
 		7C5BFB391903284A0063A5C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5F03831902E2A700238DA5 /* CoreGraphics.framework */; };
 		7C5BFB3A1903284A0063A5C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5F03851902E2A700238DA5 /* UIKit.framework */; };
@@ -40,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C3EB5B11906C99800D74CF8 /* CBCentralManager+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBCentralManager+Blocks.h"; sourceTree = "<group>"; };
+		7C3EB5B21906C99800D74CF8 /* CBCentralManager+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBCentralManager+Blocks.m"; sourceTree = "<group>"; };
+		7C3EB5B41906D5A500D74CF8 /* CBPeripheral+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheral+Blocks.h"; sourceTree = "<group>"; };
+		7C3EB5B51906D5A500D74CF8 /* CBPeripheral+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheral+Blocks.m"; sourceTree = "<group>"; };
 		7C5BFB371903284A0063A5C1 /* BLE-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BLE-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C5BFB3D1903284A0063A5C1 /* BLE-Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BLE-Demo-Info.plist"; sourceTree = "<group>"; };
 		7C5BFB3F1903284A0063A5C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -175,6 +181,10 @@
 			children = (
 				7C788EF4190328910032FE4B /* BLEManager.h */,
 				7C788EF5190328910032FE4B /* BLEManager.m */,
+				7C3EB5B11906C99800D74CF8 /* CBCentralManager+Blocks.h */,
+				7C3EB5B21906C99800D74CF8 /* CBCentralManager+Blocks.m */,
+				7C3EB5B41906D5A500D74CF8 /* CBPeripheral+Blocks.h */,
+				7C3EB5B51906D5A500D74CF8 /* CBPeripheral+Blocks.m */,
 				7C788EF6190328910032FE4B /* CBCentralManager+Debug.h */,
 				7C788EF7190328910032FE4B /* CBCentralManager+Debug.m */,
 				7C788F0E19033C1B0032FE4B /* CBPeripheralManager+Debug.h */,
@@ -312,9 +322,11 @@
 			files = (
 				7C5BFB461903284A0063A5C1 /* AppDelegate.m in Sources */,
 				7C788EFD190328910032FE4B /* PeripheralsViewController.m in Sources */,
+				7C3EB5B61906D5A500D74CF8 /* CBPeripheral+Blocks.m in Sources */,
 				7C788EFE190328910032FE4B /* PeripheralViewController.m in Sources */,
 				7C788F0919033AA80032FE4B /* AdvertisingViewController.m in Sources */,
 				7C788F1019033C1B0032FE4B /* CBPeripheralManager+Debug.m in Sources */,
+				7C3EB5B31906C99800D74CF8 /* CBCentralManager+Blocks.m in Sources */,
 				7C5BFB421903284A0063A5C1 /* main.m in Sources */,
 				7C788EFC190328910032FE4B /* CBCentralManager+Debug.m in Sources */,
 				7C788EFB190328910032FE4B /* BLEManager.m in Sources */,
@@ -380,6 +392,7 @@
 				);
 				INFOPLIST_FILE = "BLE-Demo/BLE-Demo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7845B2D4-A3DD-4354-A2FC-825E6D1ABD48";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -393,6 +406,7 @@
 				GCC_PREFIX_HEADER = "BLE-Demo/BLE-Demo-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Demo/BLE-Demo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7845B2D4-A3DD-4354-A2FC-825E6D1ABD48";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

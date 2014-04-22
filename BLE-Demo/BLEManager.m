@@ -10,13 +10,14 @@
 #import "CBCentralManager+Debug.h"
 #import "CBPeripheralManager+Debug.h"
 
-NSString * const BLEDidDiscoverPeripheralNotification = @"BLEDidDiscoverPeripheralNotification";
-NSString * const BLEDidConnectPeripheralNotification = @"BLEDidConnectPeripheralNotification";
-NSString * const BLEDidDiscoverServicesNotification = @"BLEDidDiscoverServicesNotification";
+NSString * const BLEDidDiscoverPeripheralNotification      = @"BLEDidDiscoverPeripheralNotification";
+NSString * const BLEDidConnectPeripheralNotification       = @"BLEDidConnectPeripheralNotification";
+NSString * const BLEDidDiscoverServicesNotification        = @"BLEDidDiscoverServicesNotification";
 NSString * const BLEDidDiscoverCharacteristicsNotification = @"BLEDidDiscoverCharacteristicsNotification";
-NSString * const BLEDidStartAdvertisingNotification = @"BLEDidStartAdvertisingNotification";
+NSString * const BLEDidStartAdvertisingNotification        = @"BLEDidStartAdvertisingNotification";
+NSString * const BLEDidDiscoverDescriptorsNotification     = @"BLEDidDiscoverDescriptorsNotification";
 
-static NSString * const BLEDemoServiceUUID = @"7846ED88-7CD9-495F-AC2A-D34D245C9FB6";
+static NSString * const BLEDemoServiceUUID       = @"7846ED88-7CD9-495F-AC2A-D34D245C9FB6";
 static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA083BB9539";
 
 
@@ -43,7 +44,6 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
     self = [super init];
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
-    self.peripherals = [NSMutableArray new];
     return self;
 }
 
@@ -127,7 +127,6 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
 {
     if (!self.isScanning) {
         self.scanning = YES;
-        [self.peripherals removeAllObjects];
         [self.centralManager scanForPeripheralsWithServices:nil options:nil];
     }
 }
@@ -151,10 +150,7 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"Discovered %@", peripheral);
-    if (![self.peripherals containsObject:peripheral]) {
-        [self.peripherals addObject:peripheral];
-        [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidDiscoverPeripheralNotification object:peripheral];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidDiscoverPeripheralNotification object:peripheral];
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
@@ -164,11 +160,38 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
     peripheral.delegate = self;
     [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidConnectPeripheralNotification object:peripheral];
 
+    [peripheral readRSSI];
     [peripheral discoverServices:nil];
 }
 
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
+}
+
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    NSLog(@"didFailToConnectPeripheral: %@", error);
+}
+
+- (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
+{
+    NSLog(@"didRetrieveConnectedPeripherals: %@", peripherals);
+}
+
+- (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
+{
+    NSLog(@"didRetrievePeripherals: %@", peripherals);
+}
+
+
 
 #pragma mark - Peripheral Delegate
+
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    
+}
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
@@ -186,6 +209,18 @@ static NSString * const BLEDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA
 
     for (CBCharacteristic *characteristic in service.characteristics) {
         NSLog(@"Discovered characteristic %@", characteristic);
+        [peripheral readValueForCharacteristic:characteristic];
+        [peripheral discoverDescriptorsForCharacteristic:characteristic];
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLEDidDiscoverDescriptorsNotification object:characteristic];
+    
+    for (CBDescriptor *descriptor in characteristic.descriptors) {
+        NSLog(@"Discovered descriptor %@", descriptor);
+        [peripheral readValueForDescriptor:descriptor];
     }
 }
 

@@ -31,6 +31,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[BLEManager sharedInstance].centralManager cancelPeripheralConnection:self.peripheral];
 }
 
 - (void)didDiscoverServices:(NSNotification *)notification
