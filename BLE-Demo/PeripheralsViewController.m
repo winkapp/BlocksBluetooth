@@ -8,12 +8,13 @@
 
 #import "PeripheralsViewController.h"
 #import "PeripheralViewController.h"
-#import "BLEManager.h"
+#import "CBCentralManager+Blocks.h"
 
 
 @interface PeripheralsViewController ()
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *scanButton;
 @property (nonatomic, strong) NSMutableArray *peripherals;
+@property (nonatomic, getter = isScanning) BOOL scanning;
 @end
 
 
@@ -24,39 +25,39 @@
     [super viewDidLoad];
     
     self.peripherals = [NSMutableArray new];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDiscoverPeripheral:) name:BLEDidDiscoverPeripheralNotification object:nil];
 }
 
 
 #pragma mark -
 
-- (void)didDiscoverPeripheral:(NSNotification *)notification
+- (IBAction)scanButtonTapped:(id)sender
 {
-    CBPeripheral *peripheral = notification.object;
+    __weak typeof(self) weakSelf = self;
     
-    if (![self.peripherals containsObject:peripheral]) {
-        [self.tableView beginUpdates];
-
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.peripherals.count inSection:0];
-        [self.peripherals addObject:peripheral];
-
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView endUpdates];
+    if (!self.isScanning) {
+        [self.peripherals removeAllObjects];
+        [self.tableView reloadData];
+        [[CBCentralManager defaultManager] scanForPeripheralsWithServices:nil options:nil didDiscover:^(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI) {
+            [weakSelf addPeripheral:peripheral];
+        }];
+        self.scanning = YES;
+        self.scanButton.title = @"Stop";
+    }
+    else {
+        [[CBCentralManager defaultManager] stopScanAndRemoveHandler];
+        self.scanButton.title = @"Rescan";
+        self.scanning = NO;
     }
 }
 
-- (IBAction)scanButtonTapped:(id)sender
+- (void)addPeripheral:(CBPeripheral *)peripheral
 {
-    if ([BLEManager sharedInstance].isScanning) {
-        [[BLEManager sharedInstance] stopScan];
-        self.scanButton.title = @"Rescan";
-    }
-    else {
-        [self.peripherals removeAllObjects];
-        [self.tableView reloadData];
-        [[BLEManager sharedInstance] startScan];
-        self.scanButton.title = @"Stop";
+    if (![self.peripherals containsObject:peripheral]) {
+        [self.tableView beginUpdates];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.peripherals.count inSection:0];
+        [self.peripherals addObject:peripheral];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView endUpdates];
     }
 }
 
@@ -78,7 +79,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     CBPeripheral *peripheral = self.peripherals[indexPath.row];
-    cell.textLabel.text = peripheral.name;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", peripheral.name, peripheral.RSSI];
     cell.detailTextLabel.text = peripheral.identifier.UUIDString;
     return cell;
 }

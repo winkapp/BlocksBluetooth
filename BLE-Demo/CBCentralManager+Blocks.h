@@ -7,8 +7,8 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "CBPeripheral+Blocks.h"
 
-typedef void(^CBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
 typedef void(^CBPeripheralArrayBlock)(NSArray *peripherals);
 typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
 

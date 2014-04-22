@@ -192,42 +192,54 @@
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"Discovered %@", peripheral);
-    if (self.didDiscoverPeripheral) self.didDiscoverPeripheral(peripheral, advertisementData, RSSI);
+    if (self.didDiscoverPeripheral) {
+        self.didDiscoverPeripheral(peripheral, advertisementData, RSSI);
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
 {
     NSLog(@"didRetrievePeripherals: %@", peripherals);
-    self.didRetrievePeripherals(peripherals);
-    self.didRetrievePeripherals = nil;
+    if (self.didRetrievePeripherals) {
+        self.didRetrievePeripherals(peripherals);
+        self.didRetrievePeripherals = nil;
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
 {
     NSLog(@"didRetrieveConnectedPeripherals: %@", peripherals);
-    self.didRetrieveConnectedPeripherals(peripherals);
-    self.didRetrieveConnectedPeripherals = nil;
+    if (self.didRetrieveConnectedPeripherals) {
+        self.didRetrieveConnectedPeripherals(peripherals);
+        self.didRetrieveConnectedPeripherals = nil;
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     NSLog(@"Peripheral connected: %@", peripheral);
-    peripheral.didConnect(peripheral, nil);
-    peripheral.didConnect = nil;
+    if (peripheral.didConnect) {
+        peripheral.didConnect(peripheral, nil);
+        peripheral.didConnect = nil;
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"didFailToConnectPeripheral: %@", error);
-    peripheral.didConnect(nil, error);
-    peripheral.didConnect = nil;
+    if (peripheral.didConnect) {
+        peripheral.didConnect(nil, error);
+        peripheral.didConnect = nil;
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
-    peripheral.didDisconnect(peripheral, error);
-    peripheral.didDisconnect = nil;
+    if (peripheral.didDisconnect) {
+        peripheral.didDisconnect(peripheral, error);
+        peripheral.didDisconnect = nil;
+    }
 }
 
 @end
