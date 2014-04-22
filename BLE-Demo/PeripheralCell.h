@@ -1,8 +1,8 @@
 //
-//  PeripheralViewController.h
+//  PeripheralCell.h
 //  BLE-Demo
 //
-//  Created by Joseph Lin on 4/19/14.
+//  Created by Joseph Lin on 4/22/14.
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 @class CBPeripheral;
 
 
-@interface PeripheralViewController : UITableViewController
+@interface PeripheralCell : UITableViewCell
 
 @property (nonatomic, strong) CBPeripheral *peripheral;
 

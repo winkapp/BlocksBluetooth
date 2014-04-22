@@ -7,6 +7,8 @@
 //
 
 #import "PeripheralViewController.h"
+#import "CBPeripheral+Blocks.h"
+#import "CBCentralManager+Blocks.h"
 
 
 @interface PeripheralViewController ()
@@ -21,27 +23,31 @@
     [super viewDidLoad];
     
     self.title = self.peripheral.name;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDiscoverServices:) name:BLEDidDiscoverServicesNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDiscoverCharacteristics:) name:BLEDidDiscoverCharacteristicsNotification object:nil];
-    
-    [[BLEManager sharedInstance].centralManager connectPeripheral:self.peripheral options:nil];
+
+    __weak typeof(self) weakSelf = self;
+    [[CBCentralManager defaultManager] connectPeripheral:self.peripheral options:nil didConnect:^(CBPeripheral *peripheral, NSError *error) {
+        
+        [peripheral discoverServices:nil didDiscover:^(NSArray *services, NSError *error) {
+            
+            [weakSelf.tableView reloadData];
+            
+            for (CBService *service in services) {
+                [peripheral discoverCharacteristics:nil forService:service didDiscover:^(NSArray *characteristics, NSError *error) {
+
+                    [self.tableView beginUpdates];
+                    NSUInteger index = [peripheral.services indexOfObject:service];
+                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:index];
+                    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationTop];
+                    [self.tableView endUpdates];
+                }];
+            }
+        }];
+    }];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[BLEManager sharedInstance].centralManager cancelPeripheralConnection:self.peripheral];
-}
-
-- (void)didDiscoverServices:(NSNotification *)notification
-{
-    [self.tableView reloadData];
-}
-
-- (void)didDiscoverCharacteristics:(NSNotification *)notification
-{
-    [self.tableView reloadData];
+    [[CBCentralManager defaultManager] cancelPeripheralConnection:self.peripheral didDisconnect:nil];
 }
 
 

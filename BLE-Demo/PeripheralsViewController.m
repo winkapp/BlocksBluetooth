@@ -9,6 +9,8 @@
 #import "PeripheralsViewController.h"
 #import "PeripheralViewController.h"
 #import "CBCentralManager+Blocks.h"
+#import "CBPeripheral+Debug.h"
+#import "PeripheralCell.h"
 
 
 @interface PeripheralsViewController ()
@@ -76,11 +78,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    CBPeripheral *peripheral = self.peripherals[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", peripheral.name, peripheral.RSSI];
-    cell.detailTextLabel.text = peripheral.identifier.UUIDString;
+    PeripheralCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PeripheralCell class]) forIndexPath:indexPath];
+    cell.peripheral = self.peripherals[indexPath.row];
     return cell;
 }
 
