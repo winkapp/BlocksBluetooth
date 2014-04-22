@@ -27,7 +27,7 @@
     
     self.nameLabel.text = peripheral.name ?: @"(Unknown)";
     self.stateLabel.text = peripheral.stateString;
-    self.servicesLabel.text = (peripheral.services) ? [NSString stringWithFormat:@"%d services", peripheral.services.count] : @"";
+    self.servicesLabel.text = (peripheral.services) ? [NSString stringWithFormat:@"%lu services", (unsigned long)peripheral.services.count] : @"";
     self.identifierLabel.text = peripheral.identifier.UUIDString;
     
     switch (peripheral.state) {

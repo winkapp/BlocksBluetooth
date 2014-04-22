@@ -42,7 +42,7 @@
     
     self.propertiesLabel.text = characteristic.propertiesString;
 
-    self.descriptorsLabel.text = (characteristic.descriptors) ? [NSString stringWithFormat:@"%d descriptors", characteristic.descriptors.count] : nil;
+    self.descriptorsLabel.text = (characteristic.descriptors) ? [NSString stringWithFormat:@"%lu descriptors", (unsigned long)characteristic.descriptors.count] : nil;
 }
 
 @end
