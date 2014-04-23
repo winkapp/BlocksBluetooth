@@ -218,7 +218,7 @@
 {
     NSLog(@"didRetrievePeripherals: %@", peripherals);
     if (self.didRetrievePeripherals) {
-        self.didRetrievePeripherals(peripherals);
+        self.didRetrievePeripherals(peripherals, nil);
         self.didRetrievePeripherals = nil;
     }
 }
@@ -227,7 +227,7 @@
 {
     NSLog(@"didRetrieveConnectedPeripherals: %@", peripherals);
     if (self.didRetrieveConnectedPeripherals) {
-        self.didRetrieveConnectedPeripherals(peripherals);
+        self.didRetrieveConnectedPeripherals(peripherals, nil);
         self.didRetrieveConnectedPeripherals = nil;
     }
 }

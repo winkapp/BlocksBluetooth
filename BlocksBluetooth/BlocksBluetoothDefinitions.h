@@ -10,6 +10,7 @@
 #define BlocksBluetooth_iOS_Example_BlocksBluetoothDefinitions_h
 
 typedef void(^BBVoidBlock)();
+typedef void(^BBErrorBlock)(NSError *error);
 
 typedef void(^BBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
 typedef void(^BBPeripheralsBlock)(NSArray *peripherals, NSError *error);
