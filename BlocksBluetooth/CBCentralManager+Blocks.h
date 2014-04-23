@@ -13,6 +13,9 @@
 
 @interface CBCentralManager (Blocks) <CBCentralManagerDelegate>
 
+/**
+ *  Called when the centralManagerDidUpdateState: delegate method is called.
+ */
 @property (nonatomic, strong) BBVoidBlock didUpdateState;
 
 
@@ -35,7 +38,7 @@
 - (id)initWithQueue:(dispatch_queue_t)queue;
 
 /**
- *    Same as initWithDelegate:queue:options: but with the delegate set to self.
+ *  Same as initWithDelegate:queue:options: but with the delegate set to self.
  *
  *  @param queue   The dispatch queue on which the events will be dispatched.
  *  @param options An optional dictionary specifying options for the manager.
@@ -48,7 +51,7 @@
 #pragma mark - Scanning or Stopping Scans of Peripherals
 
 /**
- *  Calls <code>scanForPeripheralsWithServices:options:</code> and uses <code>didDiscover</code> to handle <code>centralManager:didDiscoverPeripheral:advertisementData:RSSI:</code> callbacks.
+ *  Calls <code>scanForPeripheralsWithServices:options:</code> and uses <code>didDiscover</code> to handle the <code>centralManager:didDiscoverPeripheral:advertisementData:RSSI:</code> callbacks.
  *
  *  @param serviceUUIDs A list of <code>CBUUID</code> objects representing the service(s) to scan for.
  *  @param options      An optional dictionary specifying options for the scan.
