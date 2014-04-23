@@ -15,22 +15,22 @@
 {
     switch (self.state) {
         case CBCentralManagerStateUnknown:
-            return @"CBCentralManagerStateUnknown";
+            return @"Unknown";
             
         case CBCentralManagerStateResetting:
-            return @"CBCentralManagerStateResetting";
+            return @"Resetting";
             
         case CBCentralManagerStateUnsupported:
-            return @"CBCentralManagerStateUnsupported";
+            return @"Unsupported";
             
         case CBCentralManagerStateUnauthorized:
-            return @"CBCentralManagerStateUnauthorized";
+            return @"Unauthorized";
             
         case CBCentralManagerStatePoweredOff:
-            return @"CBCentralManagerStatePoweredOff";
+            return @"PoweredOff";
             
         case CBCentralManagerStatePoweredOn:
-            return @"CBCentralManagerStatePoweredOn";
+            return @"PoweredOn";
             
         default:
             return nil;

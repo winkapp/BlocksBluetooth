@@ -1,8 +1,8 @@
 //
 //  main.m
-//  BLE-Demo-Central
+//  BlocksBluetooth iOS Example
 //
-//  Created by Joseph Lin on 4/19/14.
+//  Created by Joseph Lin on 4/23/14.
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 

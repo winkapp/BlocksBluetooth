@@ -15,22 +15,22 @@
 {
     switch (self.state) {
         case CBPeripheralManagerStateUnknown:
-            return @"CBPeripheralManagerStateUnknown";
+            return @"Unknown";
 
         case CBPeripheralManagerStateResetting:
-            return @"CBPeripheralManagerStateResetting";
+            return @"Resetting";
             
         case CBPeripheralManagerStateUnsupported:
-            return @"CBPeripheralManagerStateUnsupported";
+            return @"Unsupported";
             
         case CBPeripheralManagerStateUnauthorized:
-            return @"CBPeripheralManagerStateUnauthorized";
+            return @"Unauthorized";
             
         case CBPeripheralManagerStatePoweredOff:
-            return @"CBPeripheralManagerStatePoweredOff";
+            return @"PoweredOff";
             
         case CBPeripheralManagerStatePoweredOn:
-            return @"CBPeripheralManagerStatePoweredOn";
+            return @"PoweredOn";
             
         default:
             return nil;

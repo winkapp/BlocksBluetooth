@@ -1,0 +1,57 @@
+
+/* Class = "IBUIButton"; normalTitle = "Start Advertising"; ObjectID = "0C6-zv-g0S"; */
+"0C6-zv-g0S.normalTitle" = "Start Advertising";
+
+/* Class = "IBUILabel"; text = "Peripheral"; ObjectID = "8dy-Mp-n8B"; */
+"8dy-Mp-n8B.text" = "Peripheral";
+
+/* Class = "IBUINavigationItem"; title = "Peripherals"; ObjectID = "F8W-AS-GAr"; */
+"F8W-AS-GAr.title" = "Peripherals";
+
+/* Class = "IBUIBarButtonItem"; title = "Scan"; ObjectID = "Flo-sH-A1e"; */
+"Flo-sH-A1e.title" = "Scan";
+
+/* Class = "IBUILabel"; text = "71123C88-CEB5-9729-924C-3A2C7E2171EE"; ObjectID = "I9q-SP-uTA"; */
+"I9q-SP-uTA.text" = "71123C88-CEB5-9729-924C-3A2C7E2171EE";
+
+/* Class = "IBUILabel"; text = "RSSI: --"; ObjectID = "JwL-sz-zAY"; */
+"JwL-sz-zAY.text" = "RSSI: --";
+
+/* Class = "IBUILabel"; text = "properties"; ObjectID = "N6R-g6-RFR"; */
+"N6R-g6-RFR.text" = "properties";
+
+/* Class = "IBUINavigationItem"; title = "Device Name"; ObjectID = "Tef-yK-BnK"; */
+"Tef-yK-BnK.title" = "Device Name";
+
+/* Class = "IBUILabel"; text = "3 services"; ObjectID = "app-Uu-jZ3"; */
+"app-Uu-jZ3.text" = "3 services";
+
+/* Class = "IBUILabel"; text = "disconnected"; ObjectID = "cZi-H2-Veo"; */
+"cZi-H2-Veo.text" = "disconnected";
+
+/* Class = "IBUILabel"; text = "disconnected"; ObjectID = "dFR-gM-Yby"; */
+"dFR-gM-Yby.text" = "disconnected";
+
+/* Class = "IBUILabel"; text = "Central"; ObjectID = "djj-Ew-XQE"; */
+"djj-Ew-XQE.text" = "Central";
+
+/* Class = "IBUILabel"; text = "71123C88-CEB5-9729-924C-3A2C7E2171EE"; ObjectID = "f5K-PS-5WZ"; */
+"f5K-PS-5WZ.text" = "71123C88-CEB5-9729-924C-3A2C7E2171EE";
+
+/* Class = "IBUILabel"; text = "3 desriptors"; ObjectID = "lAh-N6-nrg"; */
+"lAh-N6-nrg.text" = "3 desriptors";
+
+/* Class = "IBUILabel"; text = "Value"; ObjectID = "lWT-hU-QrI"; */
+"lWT-hU-QrI.text" = "Value";
+
+/* Class = "IBUILabel"; text = "RSSI: --"; ObjectID = "lkU-7J-MZF"; */
+"lkU-7J-MZF.text" = "RSSI: --";
+
+/* Class = "IBUILabel"; text = "Device Name"; ObjectID = "pbR-4U-QCC"; */
+"pbR-4U-QCC.text" = "Device Name";
+
+/* Class = "IBUILabel"; text = "71123C88-CEB5-9729-924C-3A2C7E2171EE"; ObjectID = "tXU-e6-zpZ"; */
+"tXU-e6-zpZ.text" = "71123C88-CEB5-9729-924C-3A2C7E2171EE";
+
+/* Class = "IBUIButton"; normalTitle = "Stop Advertising"; ObjectID = "z4m-bl-m6z"; */
+"z4m-bl-m6z.normalTitle" = "Stop Advertising";

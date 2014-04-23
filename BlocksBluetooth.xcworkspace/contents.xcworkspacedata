@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:BLE-Demo.xcodeproj">
+      location = "group:BlocksBluetooth iOS Example/BlocksBluetooth iOS Example.xcodeproj">
    </FileRef>
 </Workspace>

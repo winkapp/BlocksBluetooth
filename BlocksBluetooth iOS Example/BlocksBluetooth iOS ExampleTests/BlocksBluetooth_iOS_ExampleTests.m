@@ -1,18 +1,18 @@
 //
-//  BLE_DemoTests.m
-//  BLE-DemoTests
+//  BlocksBluetooth_iOS_ExampleTests.m
+//  BlocksBluetooth iOS ExampleTests
 //
-//  Created by Joseph Lin on 4/19/14.
+//  Created by Joseph Lin on 4/23/14.
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface BLE_DemoTests : XCTestCase
+@interface BlocksBluetooth_iOS_ExampleTests : XCTestCase
 
 @end
 
-@implementation BLE_DemoTests
+@implementation BlocksBluetooth_iOS_ExampleTests
 
 - (void)setUp
 {
