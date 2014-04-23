@@ -199,6 +199,7 @@
 			children = (
 				7CA9A1BE190819E200F7411F /* BLEManager.h */,
 				7CA9A1BF190819E200F7411F /* BLEManager.m */,
+				7CF0D86619083E7F00E22469 /* BlocksBluetoothDefinitions.h */,
 				7CA9A1A71908192E00F7411F /* CBCentralManager+Blocks.h */,
 				7CA9A1A81908192E00F7411F /* CBCentralManager+Blocks.m */,
 				7CA9A1AD1908192E00F7411F /* CBPeripheral+Blocks.h */,
@@ -213,7 +214,6 @@
 				7CA9A1B01908192E00F7411F /* CBPeripheral+Debug.m */,
 				7CA9A1B11908192E00F7411F /* CBPeripheralManager+Debug.h */,
 				7CA9A1B21908192E00F7411F /* CBPeripheralManager+Debug.m */,
-				7CF0D86619083E7F00E22469 /* BlocksBluetoothDefinitions.h */,
 			);
 			name = BlocksBluetooth;
 			path = ../BlocksBluetooth;
