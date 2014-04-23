@@ -1,4 +1,4 @@
-BLE-demo
+BlocksBluetooth
 ========
 
-Bluetooth demo project with both Central and Peripheral targets.
+Block-based CoreBluetooth utilities as categories.
