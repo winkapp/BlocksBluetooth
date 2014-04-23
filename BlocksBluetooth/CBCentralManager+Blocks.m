@@ -14,29 +14,29 @@
 #pragma mark - CBPeripheral Private Properties
 
 @interface CBPeripheral (_Blocks)
-@property (nonatomic, copy) CBPeripheralBlock didConnect;
-@property (nonatomic, copy) CBPeripheralBlock didDisconnect;
+@property (nonatomic, copy) BBPeripheralBlock didConnect;
+@property (nonatomic, copy) BBPeripheralBlock didDisconnect;
 @end
 
 
 @implementation CBPeripheral (_Blocks)
 
-- (CBPeripheralBlock)didConnect
+- (BBPeripheralBlock)didConnect
 {
-    return (CBPeripheralBlock)objc_getAssociatedObject(self, @selector(didConnect));
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didConnect));
 }
 
-- (void)setDidConnect:(CBPeripheralBlock)didConnect
+- (void)setDidConnect:(BBPeripheralBlock)didConnect
 {
     objc_setAssociatedObject(self, @selector(didConnect), didConnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralBlock)didDisconnect
+- (BBPeripheralBlock)didDisconnect
 {
-    return (CBPeripheralBlock)objc_getAssociatedObject(self, @selector(didDisconnect));
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didDisconnect));
 }
 
-- (void)setDidDisconnect:(CBPeripheralBlock)didDisconnect
+- (void)setDidDisconnect:(BBPeripheralBlock)didDisconnect
 {
     objc_setAssociatedObject(self, @selector(didDisconnect), didDisconnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -48,40 +48,40 @@
 #pragma mark - CBCentralManager Private Properties
 
 @interface CBCentralManager (_Blocks)
-@property (nonatomic, copy) CBPeripheralDiscoverBlock didDiscoverPeripheral;
-@property (nonatomic, copy) CBPeripheralArrayBlock didRetrievePeripherals;
-@property (nonatomic, copy) CBPeripheralArrayBlock didRetrieveConnectedPeripherals;
+@property (nonatomic, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
+@property (nonatomic, copy) BBPeripheralsBlock didRetrievePeripherals;
+@property (nonatomic, copy) BBPeripheralsBlock didRetrieveConnectedPeripherals;
 @end
 
 
 @implementation CBCentralManager (_Blocks)
 
-- (CBPeripheralDiscoverBlock)didDiscoverPeripheral
+- (BBPeripheralDiscoverBlock)didDiscoverPeripheral
 {
-    return (CBPeripheralDiscoverBlock)objc_getAssociatedObject(self, @selector(didDiscoverPeripheral));
+    return (BBPeripheralDiscoverBlock)objc_getAssociatedObject(self, @selector(didDiscoverPeripheral));
 }
 
-- (void)setDidDiscoverPeripheral:(CBPeripheralDiscoverBlock)didDiscoverPeripheral
+- (void)setDidDiscoverPeripheral:(BBPeripheralDiscoverBlock)didDiscoverPeripheral
 {
     objc_setAssociatedObject(self, @selector(didDiscoverPeripheral), didDiscoverPeripheral, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralArrayBlock)didRetrievePeripherals
+- (BBPeripheralsBlock)didRetrievePeripherals
 {
-    return (CBPeripheralArrayBlock)objc_getAssociatedObject(self, @selector(didRetrievePeripherals));
+    return (BBPeripheralsBlock)objc_getAssociatedObject(self, @selector(didRetrievePeripherals));
 }
 
-- (void)setDidRetrievePeripherals:(CBPeripheralArrayBlock)didRetrievePeripherals
+- (void)setDidRetrievePeripherals:(BBPeripheralsBlock)didRetrievePeripherals
 {
     objc_setAssociatedObject(self, @selector(didRetrievePeripherals), didRetrievePeripherals, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralArrayBlock)didRetrieveConnectedPeripherals
+- (BBPeripheralsBlock)didRetrieveConnectedPeripherals
 {
-    return (CBPeripheralArrayBlock)objc_getAssociatedObject(self, @selector(didRetrieveConnectedPeripherals));
+    return (BBPeripheralsBlock)objc_getAssociatedObject(self, @selector(didRetrieveConnectedPeripherals));
 }
 
-- (void)setDidRetrieveConnectedPeripherals:(CBPeripheralArrayBlock)didRetrieveConnectedPeripherals
+- (void)setDidRetrieveConnectedPeripherals:(BBPeripheralsBlock)didRetrieveConnectedPeripherals
 {
     objc_setAssociatedObject(self, @selector(didRetrieveConnectedPeripherals), didRetrieveConnectedPeripherals, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -93,6 +93,19 @@
 #pragma mark - CBCentralManager
 
 @implementation CBCentralManager (Blocks)
+
+- (BBVoidBlock)didUpdateState
+{
+    return (BBVoidBlock)objc_getAssociatedObject(self, @selector(didUpdateState));
+}
+
+- (void)setDidUpdateState:(BBVoidBlock)didUpdateState
+{
+    objc_setAssociatedObject(self, @selector(didUpdateState), didUpdateState, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+
+#pragma mark - Initializing a Central Manager
 
 + (instancetype)defaultManager
 {
@@ -119,7 +132,7 @@
 
 #pragma mark - Scanning or Stopping Scans of Peripherals
 
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options didDiscover:(CBPeripheralDiscoverBlock)didDiscover
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options didDiscover:(BBPeripheralDiscoverBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -140,7 +153,7 @@
 
 #pragma mark - Retrieving Lists of Peripherals
 
-- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(CBPeripheralArrayBlock)didRetrieve
+- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(BBPeripheralsBlock)didRetrieve
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -150,7 +163,7 @@
     return peripherals;
 }
 
-- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(CBPeripheralArrayBlock)didRetrieve
+- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(BBPeripheralsBlock)didRetrieve
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -163,7 +176,7 @@
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect didDisconnect:(CBPeripheralBlock)didDisconnect
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(BBPeripheralBlock)didConnect didDisconnect:(BBPeripheralBlock)didDisconnect
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -173,7 +186,7 @@
     [self connectPeripheral:peripheral options:options];
 }
 
-- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(CBPeripheralBlock)didDisconnect
+- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(BBPeripheralBlock)didDisconnect
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -188,6 +201,9 @@
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     NSLog(@"centralManagerDidUpdateState: %@", central.stateString);
+    if (self.didUpdateState) {
+        self.didUpdateState();
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI

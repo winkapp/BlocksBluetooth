@@ -33,6 +33,7 @@
 		7CA9A1B81908192E00F7411F /* CBPeripheralManager+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9A1B21908192E00F7411F /* CBPeripheralManager+Debug.m */; };
 		7CA9A1BD190819D300F7411F /* AdvertisingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9A1BC190819D300F7411F /* AdvertisingViewController.m */; };
 		7CA9A1C0190819E200F7411F /* BLEManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA9A1BF190819E200F7411F /* BLEManager.m */; };
+		7CF0D86519082D6B00E22469 /* CBPeripheralManager+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF0D86419082D6B00E22469 /* CBPeripheralManager+Blocks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,9 @@
 		7CA9A1BC190819D300F7411F /* AdvertisingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisingViewController.m; sourceTree = "<group>"; };
 		7CA9A1BE190819E200F7411F /* BLEManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEManager.h; sourceTree = "<group>"; };
 		7CA9A1BF190819E200F7411F /* BLEManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEManager.m; sourceTree = "<group>"; };
+		7CF0D86319082D6B00E22469 /* CBPeripheralManager+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBPeripheralManager+Blocks.h"; sourceTree = "<group>"; };
+		7CF0D86419082D6B00E22469 /* CBPeripheralManager+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBPeripheralManager+Blocks.m"; sourceTree = "<group>"; };
+		7CF0D86619083E7F00E22469 /* BlocksBluetoothDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlocksBluetoothDefinitions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +203,8 @@
 				7CA9A1A81908192E00F7411F /* CBCentralManager+Blocks.m */,
 				7CA9A1AD1908192E00F7411F /* CBPeripheral+Blocks.h */,
 				7CA9A1AE1908192E00F7411F /* CBPeripheral+Blocks.m */,
+				7CF0D86319082D6B00E22469 /* CBPeripheralManager+Blocks.h */,
+				7CF0D86419082D6B00E22469 /* CBPeripheralManager+Blocks.m */,
 				7CA9A1A91908192E00F7411F /* CBCentralManager+Debug.h */,
 				7CA9A1AA1908192E00F7411F /* CBCentralManager+Debug.m */,
 				7CA9A1AB1908192E00F7411F /* CBCharacteristic+Debug.h */,
@@ -207,6 +213,7 @@
 				7CA9A1B01908192E00F7411F /* CBPeripheral+Debug.m */,
 				7CA9A1B11908192E00F7411F /* CBPeripheralManager+Debug.h */,
 				7CA9A1B21908192E00F7411F /* CBPeripheralManager+Debug.m */,
+				7CF0D86619083E7F00E22469 /* BlocksBluetoothDefinitions.h */,
 			);
 			name = BlocksBluetooth;
 			path = ../BlocksBluetooth;
@@ -337,6 +344,7 @@
 				7CA9A19D190818C700F7411F /* CharacteristicCell.m in Sources */,
 				7CA9A19F190818C700F7411F /* PeripheralsViewController.m in Sources */,
 				7CA9A1B61908192E00F7411F /* CBPeripheral+Blocks.m in Sources */,
+				7CF0D86519082D6B00E22469 /* CBPeripheralManager+Blocks.m in Sources */,
 				7CA9A1B31908192E00F7411F /* CBCentralManager+Blocks.m in Sources */,
 				7CA9A1A0190818C700F7411F /* PeripheralViewController.m in Sources */,
 				7CA9A1B71908192E00F7411F /* CBPeripheral+Debug.m in Sources */,

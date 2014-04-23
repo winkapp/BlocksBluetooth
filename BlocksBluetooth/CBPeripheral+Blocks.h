@@ -7,45 +7,35 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
-
-typedef void(^CBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
-typedef void(^CBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray *invalidatedServices);
-
-typedef void(^CBServicesBlock)(NSArray *services, NSError *error);
-
-typedef void(^CBCharacteristicBlock)(CBCharacteristic *characteristic, NSError *error);
-typedef void(^CBCharacteristicsBlock)(NSArray *characteristics, NSError *error);
-
-typedef void(^CBDescriptorBlock)(CBDescriptor *descriptor, NSError *error);
-typedef void(^CBDescriptorsBlock)(NSArray *descriptors, NSError *error);
+#import "BlocksBluetoothDefinitions.h"
 
 
 @interface CBPeripheral (Blocks) <CBPeripheralDelegate>
 
 #pragma mark - Discovering Services
-- (void)discoverServices:(NSArray *)serviceUUIDs didDiscover:(CBServicesBlock)didDiscover;
-- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service didDiscover:(CBServicesBlock)didDiscover;
+- (void)discoverServices:(NSArray *)serviceUUIDs didDiscover:(BBServicesBlock)didDiscover;
+- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service didDiscover:(BBServicesBlock)didDiscover;
 
 #pragma mark - Discovering Characteristics and Characteristic Descriptors
-- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service didDiscover:(CBCharacteristicsBlock)didDiscover;
-- (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic didDiscover:(CBDescriptorsBlock)didDiscover;
+- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service didDiscover:(BBCharacteristicsBlock)didDiscover;
+- (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic didDiscover:(BBDescriptorsBlock)didDiscover;
 
 #pragma mark - Reading Characteristic and Characteristic Descriptor Values
-- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic didUpdate:(CBCharacteristicBlock)didUpdate;
-- (void)readValueForDescriptor:(CBDescriptor *)descriptor didUpdate:(CBDescriptorBlock)didUpdate;
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic didUpdate:(BBCharacteristicBlock)didUpdate;
+- (void)readValueForDescriptor:(CBDescriptor *)descriptor didUpdate:(BBDescriptorBlock)didUpdate;
 
 #pragma mark - Writing Characteristic and Characteristic Descriptor Values
-- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type didWrite:(CBCharacteristicBlock)didWrite;
-- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor didWrite:(CBDescriptorBlock)didWrite;
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type didWrite:(BBCharacteristicBlock)didWrite;
+- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor didWrite:(BBDescriptorBlock)didWrite;
 
 #pragma mark - Setting Notifications for a Characteristic’s Value
-- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic didUpdate:(CBCharacteristicBlock)didUpdate;
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic didUpdate:(BBCharacteristicBlock)didUpdate;
 
 #pragma mark - Accessing a Peripheral’s Received Signal Strength Indicator (RSSI) Data
-- (void)readRSSIAndOnUpdate:(CBPeripheralBlock)didUpdate;
+- (void)readRSSIAndOnUpdate:(BBPeripheralBlock)didUpdate;
 
 #pragma mark - Additional CBPeripheralDelegate Methods
-- (void)onNameUpdate:(CBPeripheralBlock)didUpdate;
-- (void)onServicesModification:(CBPeripheralUpdateBlock)didModify;
+- (void)onNameUpdate:(BBPeripheralBlock)didUpdate;
+- (void)onServicesModification:(BBPeripheralUpdateBlock)didModify;
 
 @end

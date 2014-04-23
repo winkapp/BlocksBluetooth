@@ -14,51 +14,51 @@
 #pragma mark - CBPeripheral Private Properties
 
 @interface CBPeripheral (_Blocks)
-@property (nonatomic, copy) CBServicesBlock didDiscoverServices;
-@property (nonatomic, copy) CBPeripheralBlock didUpdateRSSI;
-@property (nonatomic, copy) CBPeripheralBlock didUpdateName;
-@property (nonatomic, copy) CBPeripheralUpdateBlock didModifyServices;
+@property (nonatomic, copy) BBServicesBlock didDiscoverServices;
+@property (nonatomic, copy) BBPeripheralBlock didUpdateRSSI;
+@property (nonatomic, copy) BBPeripheralBlock didUpdateName;
+@property (nonatomic, copy) BBPeripheralUpdateBlock didModifyServices;
 @end
 
 
 @implementation CBPeripheral (_Blocks)
 
-- (CBServicesBlock)didDiscoverServices
+- (BBServicesBlock)didDiscoverServices
 {
-    return (CBServicesBlock)objc_getAssociatedObject(self, @selector(didDiscoverServices));
+    return (BBServicesBlock)objc_getAssociatedObject(self, @selector(didDiscoverServices));
 }
 
-- (void)setDidDiscoverServices:(CBServicesBlock)didDiscoverServices
+- (void)setDidDiscoverServices:(BBServicesBlock)didDiscoverServices
 {
     objc_setAssociatedObject(self, @selector(didDiscoverServices), didDiscoverServices, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralBlock)didUpdateRSSI
+- (BBPeripheralBlock)didUpdateRSSI
 {
-    return (CBPeripheralBlock)objc_getAssociatedObject(self, @selector(didUpdateRSSI));
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didUpdateRSSI));
 }
 
-- (void)setDidUpdateRSSI:(CBPeripheralBlock)didUpdateRSSI
+- (void)setDidUpdateRSSI:(BBPeripheralBlock)didUpdateRSSI
 {
     objc_setAssociatedObject(self, @selector(didUpdateRSSI), didUpdateRSSI, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralBlock)didUpdateName
+- (BBPeripheralBlock)didUpdateName
 {
-    return (CBPeripheralBlock)objc_getAssociatedObject(self, @selector(didUpdateName));
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didUpdateName));
 }
 
-- (void)setDidUpdateName:(CBPeripheralBlock)didUpdateName
+- (void)setDidUpdateName:(BBPeripheralBlock)didUpdateName
 {
     objc_setAssociatedObject(self, @selector(didUpdateName), didUpdateName, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBPeripheralUpdateBlock)didModifyServices
+- (BBPeripheralUpdateBlock)didModifyServices
 {
-    return (CBPeripheralUpdateBlock)objc_getAssociatedObject(self, @selector(didModifyServices));
+    return (BBPeripheralUpdateBlock)objc_getAssociatedObject(self, @selector(didModifyServices));
 }
 
-- (void)setDidModifyServices:(CBPeripheralUpdateBlock)didModifyServices
+- (void)setDidModifyServices:(BBPeripheralUpdateBlock)didModifyServices
 {
     objc_setAssociatedObject(self, @selector(didModifyServices), didModifyServices, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -70,29 +70,29 @@
 #pragma mark - CBService Private Properties
 
 @interface CBService (_Blocks)
-@property (nonatomic, copy) CBServicesBlock didDiscoverIncludedServices;
-@property (nonatomic, copy) CBCharacteristicsBlock didDiscoverCharacteristics;
+@property (nonatomic, copy) BBServicesBlock didDiscoverIncludedServices;
+@property (nonatomic, copy) BBCharacteristicsBlock didDiscoverCharacteristics;
 @end
 
 
 @implementation CBService (_Blocks)
 
-- (CBServicesBlock)didDiscoverIncludedServices
+- (BBServicesBlock)didDiscoverIncludedServices
 {
-    return (CBServicesBlock)objc_getAssociatedObject(self, @selector(didDiscoverIncludedServices));
+    return (BBServicesBlock)objc_getAssociatedObject(self, @selector(didDiscoverIncludedServices));
 }
 
-- (void)setDidDiscoverIncludedServices:(CBServicesBlock)didDiscoverIncludedServices
+- (void)setDidDiscoverIncludedServices:(BBServicesBlock)didDiscoverIncludedServices
 {
     objc_setAssociatedObject(self, @selector(didDiscoverIncludedServices), didDiscoverIncludedServices, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBCharacteristicsBlock)didDiscoverCharacteristics
+- (BBCharacteristicsBlock)didDiscoverCharacteristics
 {
-    return (CBCharacteristicsBlock)objc_getAssociatedObject(self, @selector(didDiscoverCharacteristics));
+    return (BBCharacteristicsBlock)objc_getAssociatedObject(self, @selector(didDiscoverCharacteristics));
 }
 
-- (void)setDidDiscoverCharacteristics:(CBCharacteristicsBlock)didDiscoverCharacteristics
+- (void)setDidDiscoverCharacteristics:(BBCharacteristicsBlock)didDiscoverCharacteristics
 {
     objc_setAssociatedObject(self, @selector(didDiscoverCharacteristics), didDiscoverCharacteristics, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -104,51 +104,51 @@
 #pragma mark - CBCharacteristic Private Properties
 
 @interface CBCharacteristic (_Blocks)
-@property (nonatomic, copy) CBDescriptorsBlock didDiscoverDescriptors;
-@property (nonatomic, copy) CBCharacteristicBlock didUpdateValue;
-@property (nonatomic, copy) CBCharacteristicBlock didWriteValue;
-@property (nonatomic, copy) CBCharacteristicBlock didUpdateNotificationState;
+@property (nonatomic, copy) BBDescriptorsBlock didDiscoverDescriptors;
+@property (nonatomic, copy) BBCharacteristicBlock didUpdateValue;
+@property (nonatomic, copy) BBCharacteristicBlock didWriteValue;
+@property (nonatomic, copy) BBCharacteristicBlock didUpdateNotificationState;
 @end
 
 
 @implementation CBCharacteristic (_Blocks)
 
-- (CBDescriptorsBlock)didDiscoverDescriptors
+- (BBDescriptorsBlock)didDiscoverDescriptors
 {
-    return (CBDescriptorsBlock)objc_getAssociatedObject(self, @selector(didDiscoverDescriptors));
+    return (BBDescriptorsBlock)objc_getAssociatedObject(self, @selector(didDiscoverDescriptors));
 }
 
-- (void)setDidDiscoverDescriptors:(CBDescriptorsBlock)didDiscoverDescriptors
+- (void)setDidDiscoverDescriptors:(BBDescriptorsBlock)didDiscoverDescriptors
 {
     objc_setAssociatedObject(self, @selector(didDiscoverDescriptors), didDiscoverDescriptors, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBCharacteristicBlock)didUpdateValue
+- (BBCharacteristicBlock)didUpdateValue
 {
-    return (CBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didUpdateValue));
+    return (BBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didUpdateValue));
 }
 
-- (void)setDidUpdateValue:(CBCharacteristicBlock)didUpdateValue
+- (void)setDidUpdateValue:(BBCharacteristicBlock)didUpdateValue
 {
     objc_setAssociatedObject(self, @selector(didUpdateValue), didUpdateValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBCharacteristicBlock)didWriteValue
+- (BBCharacteristicBlock)didWriteValue
 {
-    return (CBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didWriteValue));
+    return (BBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didWriteValue));
 }
 
-- (void)setDidWriteValue:(CBCharacteristicBlock)didWriteValue
+- (void)setDidWriteValue:(BBCharacteristicBlock)didWriteValue
 {
     objc_setAssociatedObject(self, @selector(didWriteValue), didWriteValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBCharacteristicBlock)didUpdateNotificationState
+- (BBCharacteristicBlock)didUpdateNotificationState
 {
-    return (CBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didUpdateNotificationState));
+    return (BBCharacteristicBlock)objc_getAssociatedObject(self, @selector(didUpdateNotificationState));
 }
 
-- (void)setDidUpdateNotificationState:(CBCharacteristicBlock)didUpdateNotificationState
+- (void)setDidUpdateNotificationState:(BBCharacteristicBlock)didUpdateNotificationState
 {
     objc_setAssociatedObject(self, @selector(didUpdateNotificationState), didUpdateNotificationState, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -160,30 +160,30 @@
 #pragma mark - CBDescriptor Private Properties
 
 @interface CBDescriptor (_Blocks)
-@property (nonatomic, copy) CBDescriptorBlock didUpdateValue;
-@property (nonatomic, copy) CBDescriptorBlock didWriteValue;
+@property (nonatomic, copy) BBDescriptorBlock didUpdateValue;
+@property (nonatomic, copy) BBDescriptorBlock didWriteValue;
 
 @end
 
 
 @implementation CBDescriptor (_Blocks)
 
-- (CBDescriptorBlock)didUpdateValue
+- (BBDescriptorBlock)didUpdateValue
 {
-    return (CBDescriptorBlock)objc_getAssociatedObject(self, @selector(didUpdateValue));
+    return (BBDescriptorBlock)objc_getAssociatedObject(self, @selector(didUpdateValue));
 }
 
-- (void)setDidUpdateValue:(CBDescriptorBlock)didUpdateValue
+- (void)setDidUpdateValue:(BBDescriptorBlock)didUpdateValue
 {
     objc_setAssociatedObject(self, @selector(didUpdateValue), didUpdateValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (CBDescriptorBlock)didWriteValue
+- (BBDescriptorBlock)didWriteValue
 {
-    return (CBDescriptorBlock)objc_getAssociatedObject(self, @selector(didWriteValue));
+    return (BBDescriptorBlock)objc_getAssociatedObject(self, @selector(didWriteValue));
 }
 
-- (void)setDidWriteValue:(CBDescriptorBlock)didWriteValue
+- (void)setDidWriteValue:(BBDescriptorBlock)didWriteValue
 {
     objc_setAssociatedObject(self, @selector(didWriteValue), didWriteValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -199,7 +199,7 @@
 
 #pragma mark - Discovering Services
 
-- (void)discoverServices:(NSArray *)serviceUUIDs didDiscover:(CBServicesBlock)didDiscover
+- (void)discoverServices:(NSArray *)serviceUUIDs didDiscover:(BBServicesBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -208,7 +208,7 @@
     [self discoverServices:serviceUUIDs];
 }
 
-- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service didDiscover:(CBServicesBlock)didDiscover
+- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service didDiscover:(BBServicesBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -220,7 +220,7 @@
 
 #pragma mark - Discovering Characteristics and Characteristic Descriptors
 
-- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service didDiscover:(CBCharacteristicsBlock)didDiscover
+- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service didDiscover:(BBCharacteristicsBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -229,7 +229,7 @@
     [self discoverCharacteristics:characteristicUUIDs forService:service];
 }
 
-- (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic didDiscover:(CBDescriptorsBlock)didDiscover
+- (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic didDiscover:(BBDescriptorsBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -241,7 +241,7 @@
 
 #pragma mark - Reading Characteristic and Characteristic Descriptor Values
 
-- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic didUpdate:(CBCharacteristicBlock)didUpdate
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic didUpdate:(BBCharacteristicBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -250,7 +250,7 @@
     [self readValueForCharacteristic:characteristic];
 }
 
-- (void)readValueForDescriptor:(CBDescriptor *)descriptor didUpdate:(CBDescriptorBlock)didUpdate
+- (void)readValueForDescriptor:(CBDescriptor *)descriptor didUpdate:(BBDescriptorBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -262,7 +262,7 @@
 
 #pragma mark - Writing Characteristic and Characteristic Descriptor Values
 
-- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type didWrite:(CBCharacteristicBlock)didWrite
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type didWrite:(BBCharacteristicBlock)didWrite
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -271,7 +271,7 @@
     [self writeValue:data forCharacteristic:characteristic type:type];
 }
 
-- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor didWrite:(CBDescriptorBlock)didWrite
+- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor didWrite:(BBDescriptorBlock)didWrite
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -283,7 +283,7 @@
 
 #pragma mark - Setting Notifications for a Characteristic’s Value
 
-- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic didUpdate:(CBCharacteristicBlock)didUpdate
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic didUpdate:(BBCharacteristicBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -294,7 +294,7 @@
 
 
 #pragma mark - Accessing a Peripheral’s Received Signal Strength Indicator (RSSI) Data
-- (void)readRSSIAndOnUpdate:(CBPeripheralBlock)didUpdate
+- (void)readRSSIAndOnUpdate:(BBPeripheralBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -305,7 +305,7 @@
 
 
 #pragma mark - Additional CBPeripheralDelegate Methods
-- (void)onNameUpdate:(CBPeripheralBlock)didUpdate
+- (void)onNameUpdate:(BBPeripheralBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -313,7 +313,7 @@
     self.didUpdateName = didUpdate;
 }
 
-- (void)onServicesModification:(CBPeripheralUpdateBlock)didModify
+- (void)onServicesModification:(BBPeripheralUpdateBlock)didModify
 {
     if (self.delegate != self) {
         self.delegate = self;

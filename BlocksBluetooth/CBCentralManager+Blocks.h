@@ -7,14 +7,13 @@
 //
 
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "BlocksBluetoothDefinitions.h"
 #import "CBPeripheral+Blocks.h"
-
-typedef void(^CBPeripheralArrayBlock)(NSArray *peripherals);
-typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
-
 
 
 @interface CBCentralManager (Blocks) <CBCentralManagerDelegate>
+
+@property (nonatomic, strong) BBVoidBlock didUpdateState;
 
 
 #pragma mark - Initializing a Central Manager
@@ -55,7 +54,7 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *  @param options      An optional dictionary specifying options for the scan.
  *  @param didDiscover  A block to handle the info returned by the <code>centralManager:didDiscoverPeripheral:advertisementData:RSSI:</code> delegate. Because scanning goes on indefinitely, <code>didDiscover</code> is retained and will not be set to nil automatically.
  */
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options didDiscover:(CBPeripheralDiscoverBlock)didDiscover;
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options didDiscover:(BBPeripheralDiscoverBlock)didDiscover;
 
 /**
  *  Convenient method to <code>stopScan</code> and clear the <code>didDiscover</code> block. If you call <code>stopScan</code> manually, then it's your responsibility to set <code>didDiscover</code> to nil.
@@ -73,7 +72,7 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *
  *  @return A list of <code>CBPeripheral</code> objects.
  */
-- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(CBPeripheralArrayBlock)didRetrieve;
+- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(BBPeripheralsBlock)didRetrieve;
 
 /**
  *  Block version of retrieveConnectedPeripheralsWithServices:
@@ -83,7 +82,7 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *
  *  @return A list of <code>CBPeripheral</code> objects.
  */
-- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(CBPeripheralArrayBlock)didRetrieve;
+- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(BBPeripheralsBlock)didRetrieve;
 
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
@@ -96,7 +95,7 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *  @param didConnect    Called when centralManager:didConnectPeripheral: (with an peripheral) or didFailToConnectPeripheral: (with an error) is called. Set to nil afterward.
  *  @param didDisconnect Called when centralManager:didDisconnectPeripheral:error: is called. Set to nil afterward.
  */
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(CBPeripheralBlock)didConnect didDisconnect:(CBPeripheralBlock)didDisconnect;
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(BBPeripheralBlock)didConnect didDisconnect:(BBPeripheralBlock)didDisconnect;
 
 /**
  *  Block version of cancelPeripheralConnection:
@@ -104,6 +103,6 @@ typedef void(^CBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary 
  *  @param peripheral    A <code>CBPeripheral</code>.
  *  @param didDisconnect Called when centralManager:didDisconnectPeripheral:error: is called. Set to nil afterward.
  */
-- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(CBPeripheralBlock)didDisconnect;
+- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(BBPeripheralBlock)didDisconnect;
 
 @end
