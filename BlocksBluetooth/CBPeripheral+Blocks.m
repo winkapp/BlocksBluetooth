@@ -16,6 +16,8 @@
 @interface CBPeripheral (_Blocks)
 @property (nonatomic, copy) CBServicesBlock didDiscoverServices;
 @property (nonatomic, copy) CBPeripheralBlock didUpdateRSSI;
+@property (nonatomic, copy) CBPeripheralBlock didUpdateName;
+@property (nonatomic, copy) CBPeripheralUpdateBlock didModifyServices;
 @end
 
 
@@ -39,6 +41,26 @@
 - (void)setDidUpdateRSSI:(CBPeripheralBlock)didUpdateRSSI
 {
     objc_setAssociatedObject(self, @selector(didUpdateRSSI), didUpdateRSSI, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (CBPeripheralBlock)didUpdateName
+{
+    return (CBPeripheralBlock)objc_getAssociatedObject(self, @selector(didUpdateName));
+}
+
+- (void)setDidUpdateName:(CBPeripheralBlock)didUpdateName
+{
+    objc_setAssociatedObject(self, @selector(didUpdateName), didUpdateName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (CBPeripheralUpdateBlock)didModifyServices
+{
+    return (CBPeripheralUpdateBlock)objc_getAssociatedObject(self, @selector(didModifyServices));
+}
+
+- (void)setDidModifyServices:(CBPeripheralUpdateBlock)didModifyServices
+{
+    objc_setAssociatedObject(self, @selector(didModifyServices), didModifyServices, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
@@ -272,7 +294,7 @@
 
 
 #pragma mark - Accessing a Peripheral’s Received Signal Strength Indicator (RSSI) Data
-- (void)readRSSIWithDidUpdate:(CBPeripheralBlock)didUpdate
+- (void)readRSSIAndOnUpdate:(CBPeripheralBlock)didUpdate
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -280,6 +302,25 @@
     self.didUpdateRSSI = didUpdate;
     [self readRSSI];
 }
+
+
+#pragma mark - Additional CBPeripheralDelegate Methods
+- (void)onNameUpdate:(CBPeripheralBlock)didUpdate
+{
+    if (self.delegate != self) {
+        self.delegate = self;
+    }
+    self.didUpdateName = didUpdate;
+}
+
+- (void)onServicesModification:(CBPeripheralUpdateBlock)didModify
+{
+    if (self.delegate != self) {
+        self.delegate = self;
+    }
+    self.didModifyServices = didModify;
+}
+
 
 
 #pragma mark - Peripheral Delegate
@@ -371,6 +412,22 @@
     if (peripheral.didUpdateRSSI) {
         peripheral.didUpdateRSSI(peripheral, error);
         peripheral.didUpdateRSSI = nil;
+    }
+}
+
+- (void)peripheralDidUpdateName:(CBPeripheral *)peripheral
+{
+    NSLog(@"peripheralDidUpdateName: %@", peripheral);
+    if (peripheral.didUpdateName) {
+        peripheral.didUpdateName(peripheral, nil);
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices
+{
+    NSLog(@"didModifyServices: %@, %@", peripheral, invalidatedServices);
+    if (peripheral.didModifyServices) {
+        peripheral.didModifyServices(peripheral, invalidatedServices);
     }
 }
 

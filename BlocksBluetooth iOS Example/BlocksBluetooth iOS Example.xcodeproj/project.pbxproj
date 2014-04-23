@@ -153,16 +153,8 @@
 				7CA9A1751908180700F7411F /* AppDelegate.h */,
 				7CA9A1761908180700F7411F /* AppDelegate.m */,
 				7CA9A1A1190818CD00F7411F /* Main.storyboard */,
-				7CA9A199190818C700F7411F /* PeripheralsViewController.h */,
-				7CA9A19A190818C700F7411F /* PeripheralsViewController.m */,
-				7CA9A197190818C700F7411F /* PeripheralCell.h */,
-				7CA9A198190818C700F7411F /* PeripheralCell.m */,
-				7CA9A19B190818C700F7411F /* PeripheralViewController.h */,
-				7CA9A19C190818C700F7411F /* PeripheralViewController.m */,
-				7CA9A195190818C700F7411F /* CharacteristicCell.h */,
-				7CA9A196190818C700F7411F /* CharacteristicCell.m */,
-				7CA9A1BB190819D300F7411F /* AdvertisingViewController.h */,
-				7CA9A1BC190819D300F7411F /* AdvertisingViewController.m */,
+				7CF0D861190827B900E22469 /* Central */,
+				7CF0D862190827BE00E22469 /* Peripheral */,
 				7CA9A1781908180700F7411F /* Images.xcassets */,
 				7CA9A16D1908180700F7411F /* Supporting Files */,
 			);
@@ -205,12 +197,12 @@
 				7CA9A1BF190819E200F7411F /* BLEManager.m */,
 				7CA9A1A71908192E00F7411F /* CBCentralManager+Blocks.h */,
 				7CA9A1A81908192E00F7411F /* CBCentralManager+Blocks.m */,
+				7CA9A1AD1908192E00F7411F /* CBPeripheral+Blocks.h */,
+				7CA9A1AE1908192E00F7411F /* CBPeripheral+Blocks.m */,
 				7CA9A1A91908192E00F7411F /* CBCentralManager+Debug.h */,
 				7CA9A1AA1908192E00F7411F /* CBCentralManager+Debug.m */,
 				7CA9A1AB1908192E00F7411F /* CBCharacteristic+Debug.h */,
 				7CA9A1AC1908192E00F7411F /* CBCharacteristic+Debug.m */,
-				7CA9A1AD1908192E00F7411F /* CBPeripheral+Blocks.h */,
-				7CA9A1AE1908192E00F7411F /* CBPeripheral+Blocks.m */,
 				7CA9A1AF1908192E00F7411F /* CBPeripheral+Debug.h */,
 				7CA9A1B01908192E00F7411F /* CBPeripheral+Debug.m */,
 				7CA9A1B11908192E00F7411F /* CBPeripheralManager+Debug.h */,
@@ -218,6 +210,30 @@
 			);
 			name = BlocksBluetooth;
 			path = ../BlocksBluetooth;
+			sourceTree = "<group>";
+		};
+		7CF0D861190827B900E22469 /* Central */ = {
+			isa = PBXGroup;
+			children = (
+				7CA9A199190818C700F7411F /* PeripheralsViewController.h */,
+				7CA9A19A190818C700F7411F /* PeripheralsViewController.m */,
+				7CA9A197190818C700F7411F /* PeripheralCell.h */,
+				7CA9A198190818C700F7411F /* PeripheralCell.m */,
+				7CA9A19B190818C700F7411F /* PeripheralViewController.h */,
+				7CA9A19C190818C700F7411F /* PeripheralViewController.m */,
+				7CA9A195190818C700F7411F /* CharacteristicCell.h */,
+				7CA9A196190818C700F7411F /* CharacteristicCell.m */,
+			);
+			name = Central;
+			sourceTree = "<group>";
+		};
+		7CF0D862190827BE00E22469 /* Peripheral */ = {
+			isa = PBXGroup;
+			children = (
+				7CA9A1BB190819D300F7411F /* AdvertisingViewController.h */,
+				7CA9A1BC190819D300F7411F /* AdvertisingViewController.m */,
+			);
+			name = Peripheral;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

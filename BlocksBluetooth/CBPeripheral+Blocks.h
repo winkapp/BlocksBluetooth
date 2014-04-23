@@ -9,6 +9,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 typedef void(^CBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
+typedef void(^CBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray *invalidatedServices);
 
 typedef void(^CBServicesBlock)(NSArray *services, NSError *error);
 
@@ -41,6 +42,10 @@ typedef void(^CBDescriptorsBlock)(NSArray *descriptors, NSError *error);
 - (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic didUpdate:(CBCharacteristicBlock)didUpdate;
 
 #pragma mark - Accessing a Peripheral’s Received Signal Strength Indicator (RSSI) Data
-- (void)readRSSIWithDidUpdate:(CBPeripheralBlock)didUpdate;
+- (void)readRSSIAndOnUpdate:(CBPeripheralBlock)didUpdate;
+
+#pragma mark - Additional CBPeripheralDelegate Methods
+- (void)onNameUpdate:(CBPeripheralBlock)didUpdate;
+- (void)onServicesModification:(CBPeripheralUpdateBlock)didModify;
 
 @end

@@ -38,7 +38,7 @@
         weakSelf.stateLabel.text = weakSelf.peripheral.stateString;
         
         // 1A. Read RSSI
-        [peripheral readRSSIWithDidUpdate:^(CBPeripheral *peripheral, NSError *error) {
+        [peripheral readRSSIAndOnUpdate:^(CBPeripheral *peripheral, NSError *error) {
             weakSelf.RSSILabel.text = [NSString stringWithFormat:@"RSSI: %@", peripheral.RSSI ?: @"--"];
         }];
 
