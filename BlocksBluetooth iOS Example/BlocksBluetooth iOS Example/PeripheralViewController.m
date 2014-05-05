@@ -136,4 +136,23 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CBService *service = self.peripheral.services[indexPath.section];
+    CBCharacteristic *characteristic = service.characteristics[indexPath.row];
+    
+    NSString *string = @"greetings from ios";
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    [service.peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse didWrite:^(CBCharacteristic *characteristic, NSError *error) {
+        if (error) {
+            NSLog(@"didWrite error: %@", error);
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+        }
+        else {
+            NSLog(@"didWrite: %@", characteristic);
+            [[[UIAlertView alloc] initWithTitle:nil message:@"Success!" delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+        }
+    }];
+}
+
 @end
