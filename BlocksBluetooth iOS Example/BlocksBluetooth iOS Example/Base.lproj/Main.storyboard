@@ -333,10 +333,29 @@
                                     <action selector="stopButtonTapped:" destination="TNl-5Q-ktX" eventType="touchUpInside" id="ERW-VH-miw"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UUID" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3Dj-zn-oee">
+                                <rect key="frame" x="40" y="94" width="240" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="sd1-PQ-bEW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="TNl-5Q-ktX" id="hgh-uw-iWh"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3Dj-zn-oee" firstAttribute="top" secondItem="qJq-6B-efS" secondAttribute="bottom" constant="30" id="cia-7A-1Yy"/>
+                            <constraint firstAttribute="centerX" secondItem="3Dj-zn-oee" secondAttribute="centerX" id="iYe-lS-fgJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9Nw-gO-Ddl"/>
+                    <connections>
+                        <outlet property="textField" destination="3Dj-zn-oee" id="Zah-X0-IuO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ESF-5F-g9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

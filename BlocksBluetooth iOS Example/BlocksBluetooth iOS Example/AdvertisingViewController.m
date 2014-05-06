@@ -13,8 +13,9 @@ static NSString * const BBDemoServiceUUID       = @"7846ED88-7CD9-495F-AC2A-D34D
 static NSString * const BBDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA083BB9539";
 
 
-@interface AdvertisingViewController ()
+@interface AdvertisingViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) CBMutableService *demoService;
+@property (nonatomic, weak) IBOutlet UITextField *textField;
 @end
 
 
@@ -23,6 +24,8 @@ static NSString * const BBDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA0
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.textField.text = BBDemoServiceUUID;
     
     __weak typeof(self) weakSelf = self;
     
@@ -59,7 +62,7 @@ static NSString * const BBDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA0
                                                                                           value:value
                                                                                     permissions:CBAttributePermissionsReadable];
         
-        CBUUID *demoServiceUUID = [CBUUID UUIDWithString:BBDemoServiceUUID];
+        CBUUID *demoServiceUUID = [CBUUID UUIDWithString:self.textField.text];
         CBMutableService *service = [[CBMutableService alloc] initWithType:demoServiceUUID primary:YES];
         service.characteristics = @[characteristic];
         _demoService = service;
@@ -80,6 +83,17 @@ static NSString * const BBDemoCharateristicUUID = @"B97E791B-F1A3-486C-9AF4-4DA0
 - (IBAction)stopButtonTapped:(id)sender
 {
     [[CBPeripheralManager defaultManager] stopAdvertising];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.demoService = nil;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
 }
 
 @end
