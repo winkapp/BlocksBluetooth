@@ -112,7 +112,7 @@
     static CBCentralManager *_defaultManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _defaultManager = [[CBCentralManager alloc] initWithQueue:nil];
+        _defaultManager = [[CBCentralManager alloc] initWithQueue:nil options:@{CBCentralManagerOptionShowPowerAlertKey:@NO}];
     });
     return _defaultManager;
 }
