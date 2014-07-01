@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
 
   s.name         = "BlocksBluetooth"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Bluetooth demo project with both Central and Peripheral targets."
   s.homepage     = "https://github.com/winkapp/BlocksBluetooth"
   s.license      = "MIT"
   s.author             = { "Joseph Lin" => "jlin@winkapp.com" }
-  s.source       = { :git => "https://github.com/winkapp/BlocksBluetooth.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/winkapp/BlocksBluetooth.git", :tag => "0.0.2" }
 
   s.platform     = :ios, "7.0"
 
