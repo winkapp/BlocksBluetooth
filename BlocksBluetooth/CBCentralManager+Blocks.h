@@ -65,29 +65,6 @@
 - (void)stopScanAndRemoveHandler;
 
 
-#pragma mark - Retrieving Lists of Peripherals
-
-/**
- *  Block version of retrievePeripheralsWithIdentifiers:
- *
- *  @param identifiers A list of <code>NSUUID</code> objects.
- *  @param didRetrieve Called when centralManager:didRetrievePeripherals: is called. Set to nil afterward.
- *
- *  @return A list of <code>CBPeripheral</code> objects.
- */
-- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(BBPeripheralsBlock)didRetrieve;
-
-/**
- *  Block version of retrieveConnectedPeripheralsWithServices:
- *
- *  @param serviceUUIDs A list of <code>NSUUID</code> objects.
- *  @param didRetrieve  Called when didRetrieveConnectedPeripherals: is called. Set to nil afterward.
- *
- *  @return A list of <code>CBPeripheral</code> objects.
- */
-- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(BBPeripheralsBlock)didRetrieve;
-
-
 #pragma mark - Establishing or Canceling Connections with Peripherals
 
 /**

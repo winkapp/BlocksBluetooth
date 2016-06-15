@@ -49,8 +49,6 @@
 
 @interface CBCentralManager (_Blocks)
 @property (nonatomic, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
-@property (nonatomic, copy) BBPeripheralsBlock didRetrievePeripherals;
-@property (nonatomic, copy) BBPeripheralsBlock didRetrieveConnectedPeripherals;
 @end
 
 
@@ -64,26 +62,6 @@
 - (void)setDidDiscoverPeripheral:(BBPeripheralDiscoverBlock)didDiscoverPeripheral
 {
     objc_setAssociatedObject(self, @selector(didDiscoverPeripheral), didDiscoverPeripheral, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (BBPeripheralsBlock)didRetrievePeripherals
-{
-    return (BBPeripheralsBlock)objc_getAssociatedObject(self, @selector(didRetrievePeripherals));
-}
-
-- (void)setDidRetrievePeripherals:(BBPeripheralsBlock)didRetrievePeripherals
-{
-    objc_setAssociatedObject(self, @selector(didRetrievePeripherals), didRetrievePeripherals, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (BBPeripheralsBlock)didRetrieveConnectedPeripherals
-{
-    return (BBPeripheralsBlock)objc_getAssociatedObject(self, @selector(didRetrieveConnectedPeripherals));
-}
-
-- (void)setDidRetrieveConnectedPeripherals:(BBPeripheralsBlock)didRetrieveConnectedPeripherals
-{
-    objc_setAssociatedObject(self, @selector(didRetrieveConnectedPeripherals), didRetrieveConnectedPeripherals, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
@@ -151,29 +129,6 @@
 }
 
 
-#pragma mark - Retrieving Lists of Peripherals
-
-- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers didRetrieve:(BBPeripheralsBlock)didRetrieve
-{
-    if (self.delegate != self) {
-        self.delegate = self;
-    }
-    self.didRetrievePeripherals = didRetrieve;
-    NSArray *peripherals = [self retrievePeripheralsWithIdentifiers:identifiers];
-    return peripherals;
-}
-
-- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs didRetrieve:(BBPeripheralsBlock)didRetrieve
-{
-    if (self.delegate != self) {
-        self.delegate = self;
-    }
-    self.didRetrieveConnectedPeripherals = didRetrieve;
-    NSArray *peripherals = [self retrieveConnectedPeripheralsWithServices:serviceUUIDs];
-    return peripherals;
-}
-
-
 #pragma mark - Establishing or Canceling Connections with Peripherals
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(BBPeripheralBlock)didConnect didDisconnect:(BBPeripheralBlock)didDisconnect
@@ -211,24 +166,6 @@
     NSLog(@"Discovered %@", peripheral);
     if (self.didDiscoverPeripheral) {
         self.didDiscoverPeripheral(peripheral, advertisementData, RSSI);
-    }
-}
-
-- (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals
-{
-    NSLog(@"didRetrievePeripherals: %@", peripherals);
-    if (self.didRetrievePeripherals) {
-        self.didRetrievePeripherals(peripherals, nil);
-        self.didRetrievePeripherals = nil;
-    }
-}
-
-- (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals
-{
-    NSLog(@"didRetrieveConnectedPeripherals: %@", peripherals);
-    if (self.didRetrieveConnectedPeripherals) {
-        self.didRetrieveConnectedPeripherals(peripherals, nil);
-        self.didRetrieveConnectedPeripherals = nil;
     }
 }
 
