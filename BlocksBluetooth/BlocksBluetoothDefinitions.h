@@ -9,11 +9,12 @@
 #ifndef BlocksBluetooth_iOS_Example_BlocksBluetoothDefinitions_h
 #define BlocksBluetooth_iOS_Example_BlocksBluetoothDefinitions_h
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^BBVoidBlock)();
 typedef void(^BBErrorBlock)(NSError *error);
 
-typedef void(^BBPeripheralBlock)(CBPeripheral *peripheral, NSError *error);
-typedef void(^BBPeripheralsBlock)(NSArray *peripherals, NSError *error);
+typedef void(^BBPeripheralBlock)(CBPeripheral * _Nullable peripheral, NSError * _Nullable error);
 typedef void(^BBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray *invalidatedServices);
 typedef void(^BBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
 
@@ -25,5 +26,7 @@ typedef void(^BBCharacteristicsBlock)(NSArray *characteristics, NSError *error);
 
 typedef void(^BBDescriptorBlock)(CBDescriptor *descriptor, NSError *error);
 typedef void(^BBDescriptorsBlock)(NSArray *descriptors, NSError *error);
+
+NS_ASSUME_NONNULL_END
 
 #endif

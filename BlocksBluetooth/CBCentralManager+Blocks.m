@@ -10,22 +10,24 @@
 #import <objc/runtime.h>
 #import "CBCentralManager+Debug.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 #pragma mark - CBCentralManager Private Properties
 
 @interface CBCentralManager (_Blocks)
-@property (nonatomic, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
+@property (nonatomic, nullable, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
 @end
 
 
 @implementation CBCentralManager (_Blocks)
 
-- (BBPeripheralDiscoverBlock)didDiscoverPeripheral
+- (nullable BBPeripheralDiscoverBlock)didDiscoverPeripheral
 {
     return (BBPeripheralDiscoverBlock)objc_getAssociatedObject(self, @selector(didDiscoverPeripheral));
 }
 
-- (void)setDidDiscoverPeripheral:(BBPeripheralDiscoverBlock)didDiscoverPeripheral
+- (void)setDidDiscoverPeripheral:(nullable BBPeripheralDiscoverBlock)didDiscoverPeripheral
 {
     objc_setAssociatedObject(self, @selector(didDiscoverPeripheral), didDiscoverPeripheral, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -38,12 +40,12 @@
 
 @implementation CBCentralManager (Blocks)
 
-- (BBVoidBlock)didUpdateState
+- (nullable BBVoidBlock)didUpdateState
 {
     return (BBVoidBlock)objc_getAssociatedObject(self, @selector(didUpdateState));
 }
 
-- (void)setDidUpdateState:(BBVoidBlock)didUpdateState
+- (void)setDidUpdateState:(nullable BBVoidBlock)didUpdateState
 {
     objc_setAssociatedObject(self, @selector(didUpdateState), didUpdateState, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -61,13 +63,13 @@
     return _defaultManager;
 }
 
-- (id)initWithQueue:(dispatch_queue_t)queue
+- (instancetype)initWithQueue:(nullable dispatch_queue_t)queue
 {
     self = [self initWithDelegate:self queue:queue];
     return self;
 }
 
-- (id)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options NS_AVAILABLE(NA, 7_0)
+- (instancetype)initWithQueue:(nullable dispatch_queue_t)queue options:(nullable NSDictionary<NSString *, id> *)options
 {
     self = [self initWithDelegate:self queue:queue options:options];
     return self;
@@ -76,7 +78,7 @@
 
 #pragma mark - Scanning or Stopping Scans of Peripherals
 
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options didDiscover:(BBPeripheralDiscoverBlock)didDiscover
+- (void)scanForPeripheralsWithServices:(nullable NSArray *)serviceUUIDs options:(nullable NSDictionary<NSString *, id> *)options didDiscover:(nullable BBPeripheralDiscoverBlock)didDiscover
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -97,7 +99,7 @@
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
 
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options didConnect:(BBPeripheralBlock)didConnect didDisconnect:(BBPeripheralBlock)didDisconnect
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(nullable NSDictionary<NSString *, id> *)options didConnect:(nullable BBPeripheralBlock)didConnect didDisconnect:(nullable BBPeripheralBlock)didDisconnect
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -107,7 +109,7 @@
     [self connectPeripheral:peripheral options:options];
 }
 
-- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(BBPeripheralBlock)didDisconnect
+- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral didDisconnect:(nullable BBPeripheralBlock)didDisconnect
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -127,7 +129,7 @@
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSLog(@"Discovered %@", peripheral);
     if (self.didDiscoverPeripheral) {
@@ -144,7 +146,7 @@
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
     NSLog(@"didFailToConnectPeripheral: %@", error);
     if (peripheral.didConnect) {
@@ -153,7 +155,7 @@
     }
 }
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
     NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
     if (peripheral.didDisconnect) {
@@ -163,3 +165,6 @@
 }
 
 @end
+
+
+NS_ASSUME_NONNULL_END
