@@ -15,17 +15,17 @@ typedef void(^BBVoidBlock)();
 typedef void(^BBErrorBlock)(NSError *error);
 
 typedef void(^BBPeripheralBlock)(CBPeripheral * _Nullable peripheral, NSError * _Nullable error);
-typedef void(^BBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray *invalidatedServices);
-typedef void(^BBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI);
+typedef void(^BBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray<CBService *> *invalidatedServices);
+typedef void(^BBPeripheralDiscoverBlock)(CBPeripheral *peripheral, NSDictionary<NSString *,id> *advertisementData, NSNumber *RSSI);
 
-typedef void(^BBServiceBlock)(CBService *service, NSError *error);
-typedef void(^BBServicesBlock)(NSArray *services, NSError *error);
+typedef void(^BBServiceBlock)(CBService * _Nullable service, NSError * _Nullable error);
+typedef void(^BBServicesBlock)(NSArray<CBService *> * _Nullable services, NSError * _Nullable error);
 
-typedef void(^BBCharacteristicBlock)(CBCharacteristic *characteristic, NSError *error);
-typedef void(^BBCharacteristicsBlock)(NSArray *characteristics, NSError *error);
+typedef void(^BBCharacteristicBlock)(CBCharacteristic * _Nullable characteristic, NSError * _Nullable error);
+typedef void(^BBCharacteristicsBlock)(NSArray<CBCharacteristic *> * _Nullable characteristics, NSError * _Nullable error);
 
-typedef void(^BBDescriptorBlock)(CBDescriptor *descriptor, NSError *error);
-typedef void(^BBDescriptorsBlock)(NSArray *descriptors, NSError *error);
+typedef void(^BBDescriptorBlock)(CBDescriptor * _Nullable descriptor, NSError * _Nullable error);
+typedef void(^BBDescriptorsBlock)(NSArray<CBDescriptor *> * _Nullable descriptors, NSError * _Nullable error);
 
 NS_ASSUME_NONNULL_END
 
