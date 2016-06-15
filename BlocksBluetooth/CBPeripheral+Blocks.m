@@ -196,6 +196,26 @@
 
 @implementation CBPeripheral (Blocks)
 
+- (BBPeripheralBlock)didConnect
+{
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didConnect));
+}
+
+- (void)setDidConnect:(BBPeripheralBlock)didConnect
+{
+    objc_setAssociatedObject(self, @selector(didConnect), didConnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (BBPeripheralBlock)didDisconnect
+{
+    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didDisconnect));
+}
+
+- (void)setDidDisconnect:(BBPeripheralBlock)didDisconnect
+{
+    objc_setAssociatedObject(self, @selector(didDisconnect), didDisconnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 
 #pragma mark - Discovering Services
 

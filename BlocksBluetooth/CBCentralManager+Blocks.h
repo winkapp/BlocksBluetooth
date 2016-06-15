@@ -16,7 +16,7 @@
 /**
  *  Called when the centralManagerDidUpdateState: delegate method is called.
  */
-@property (nonatomic, strong) BBVoidBlock didUpdateState;
+@property (nonatomic, copy) BBVoidBlock didUpdateState;
 
 
 #pragma mark - Initializing a Central Manager

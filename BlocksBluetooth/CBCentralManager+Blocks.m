@@ -11,40 +11,6 @@
 #import "CBCentralManager+Debug.h"
 
 
-#pragma mark - CBPeripheral Private Properties
-
-@interface CBPeripheral (_Blocks)
-@property (nonatomic, copy) BBPeripheralBlock didConnect;
-@property (nonatomic, copy) BBPeripheralBlock didDisconnect;
-@end
-
-
-@implementation CBPeripheral (_Blocks)
-
-- (BBPeripheralBlock)didConnect
-{
-    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didConnect));
-}
-
-- (void)setDidConnect:(BBPeripheralBlock)didConnect
-{
-    objc_setAssociatedObject(self, @selector(didConnect), didConnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (BBPeripheralBlock)didDisconnect
-{
-    return (BBPeripheralBlock)objc_getAssociatedObject(self, @selector(didDisconnect));
-}
-
-- (void)setDidDisconnect:(BBPeripheralBlock)didDisconnect
-{
-    objc_setAssociatedObject(self, @selector(didDisconnect), didDisconnect, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-@end
-
-
-
 #pragma mark - CBCentralManager Private Properties
 
 @interface CBCentralManager (_Blocks)

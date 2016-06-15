@@ -12,6 +12,9 @@
 
 @interface CBPeripheral (Blocks) <CBPeripheralDelegate>
 
+@property (nonatomic, copy) BBPeripheralBlock didConnect;
+@property (nonatomic, copy) BBPeripheralBlock didDisconnect;
+
 #pragma mark - Discovering Services
 
 /**
