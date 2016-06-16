@@ -10,23 +10,24 @@
 #import <objc/runtime.h>
 #import "CBPeripheralManager+Debug.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - CBService Private Properties
 
 @interface CBService (_Blocks)
-@property (nonatomic, copy) BBServiceBlock didAddService;
+@property (nonatomic, nullable, copy) BBServiceBlock didAddService;
 @end
 
 
 @implementation CBService (_Blocks)
 
-- (BBServiceBlock)didAddService
+- (nullable BBServiceBlock)didAddService
 {
     return (BBServiceBlock)objc_getAssociatedObject(self, @selector(didAddService));
 }
 
-- (void)setDidAddService:(BBServiceBlock)didAddService
+- (void)setDidAddService:(nullable BBServiceBlock)didAddService
 {
     objc_setAssociatedObject(self, @selector(didAddService), didAddService, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -38,18 +39,18 @@
 #pragma mark - CBPeripheralManager Private Properties
 
 @interface CBPeripheralManager (_Blocks)
-@property (nonatomic, copy) BBErrorBlock didStartAdvertising;
+@property (nonatomic, nullable, copy) BBErrorBlock didStartAdvertising;
 @end
 
 
 @implementation CBPeripheralManager (_Blocks)
 
-- (BBErrorBlock)didStartAdvertising
+- (nullable BBErrorBlock)didStartAdvertising
 {
     return (BBErrorBlock)objc_getAssociatedObject(self, @selector(didStartAdvertising));
 }
 
-- (void)setDidStartAdvertising:(BBErrorBlock)didStartAdvertising
+- (void)setDidStartAdvertising:(nullable BBErrorBlock)didStartAdvertising
 {
     objc_setAssociatedObject(self, @selector(didStartAdvertising), didStartAdvertising, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -62,62 +63,62 @@
 
 @implementation CBPeripheralManager (Blocks)
 
-- (BBVoidBlock)didUpdateState
+- (nullable BBVoidBlock)didUpdateState
 {
     return (BBVoidBlock)objc_getAssociatedObject(self, @selector(didUpdateState));
 }
 
-- (void)setDidUpdateState:(BBVoidBlock)didUpdateState
+- (void)setDidUpdateState:(nullable BBVoidBlock)didUpdateState
 {
     objc_setAssociatedObject(self, @selector(didUpdateState), didUpdateState, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BBCentralSubscriptionBlock)centralDidSubscribeToCharacteristic
+- (nullable BBCentralSubscriptionBlock)centralDidSubscribeToCharacteristic
 {
     return (BBCentralSubscriptionBlock)objc_getAssociatedObject(self, @selector(centralDidSubscribeToCharacteristic));
 }
 
-- (void)setCentralDidSubscribeToCharacteristic:(BBCentralSubscriptionBlock)centralDidSubscribeToCharacteristic
+- (void)setCentralDidSubscribeToCharacteristic:(nullable BBCentralSubscriptionBlock)centralDidSubscribeToCharacteristic
 {
     objc_setAssociatedObject(self, @selector(centralDidSubscribeToCharacteristic), centralDidSubscribeToCharacteristic, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BBCentralSubscriptionBlock)centralDidUnsubscribeFromCharacteristic
+- (nullable BBCentralSubscriptionBlock)centralDidUnsubscribeFromCharacteristic
 {
     return (BBCentralSubscriptionBlock)objc_getAssociatedObject(self, @selector(centralDidUnsubscribeFromCharacteristic));
 }
 
-- (void)setCentralDidUnsubscribeFromCharacteristic:(BBCentralSubscriptionBlock)centralDidUnsubscribeFromCharacteristic
+- (void)setCentralDidUnsubscribeFromCharacteristic:(nullable BBCentralSubscriptionBlock)centralDidUnsubscribeFromCharacteristic
 {
     objc_setAssociatedObject(self, @selector(centralDidUnsubscribeFromCharacteristic), centralDidUnsubscribeFromCharacteristic, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BBVoidBlock)isReadyToUpdateSubscribers
+- (nullable BBVoidBlock)isReadyToUpdateSubscribers
 {
     return (BBVoidBlock)objc_getAssociatedObject(self, @selector(isReadyToUpdateSubscribers));
 }
 
-- (void)setIsReadyToUpdateSubscribers:(BBVoidBlock)isReadyToUpdateSubscribers
+- (void)setIsReadyToUpdateSubscribers:(nullable BBVoidBlock)isReadyToUpdateSubscribers
 {
     objc_setAssociatedObject(self, @selector(isReadyToUpdateSubscribers), isReadyToUpdateSubscribers, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BBRequestBlock)didReceiveReadRequest
+- (nullable BBRequestBlock)didReceiveReadRequest
 {
     return (BBRequestBlock)objc_getAssociatedObject(self, @selector(didReceiveReadRequest));
 }
 
-- (void)setDidReceiveReadRequest:(BBRequestBlock)didReceiveReadRequest
+- (void)setDidReceiveReadRequest:(nullable BBRequestBlock)didReceiveReadRequest
 {
     objc_setAssociatedObject(self, @selector(didReceiveReadRequest), didReceiveReadRequest, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (BBRequestsBlock)didReceiveWriteRequests
+- (nullable BBRequestsBlock)didReceiveWriteRequests
 {
     return (BBRequestsBlock)objc_getAssociatedObject(self, @selector(didReceiveWriteRequests));
 }
 
-- (void)setDidReceiveWriteRequests:(BBRequestsBlock)didReceiveWriteRequests
+- (void)setDidReceiveWriteRequests:(nullable BBRequestsBlock)didReceiveWriteRequests
 {
     objc_setAssociatedObject(self, @selector(didReceiveWriteRequests), didReceiveWriteRequests, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -135,13 +136,13 @@
     return _defaultManager;
 }
 
-- (id)initWithQueue:(dispatch_queue_t)queue
+- (id)initWithQueue:(nullable dispatch_queue_t)queue
 {
     self = [self initWithDelegate:self queue:queue];
     return self;
 }
 
-- (id)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options NS_AVAILABLE(NA, 7_0)
+- (id)initWithQueue:(nullable dispatch_queue_t)queue options:(nullable NSDictionary<NSString *, id> *)options NS_AVAILABLE(NA, 7_0)
 {
     self = [self initWithDelegate:self queue:queue options:options];
     return self;
@@ -150,7 +151,7 @@
 
 #pragma mark - Adding Services
 
-- (void)addService:(CBMutableService *)service didAdd:(BBServiceBlock)didAdd
+- (void)addService:(CBMutableService *)service didAdd:(nullable BBServiceBlock)didAdd
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -162,7 +163,7 @@
 
 #pragma mark - Advertising Peripheral Data
 
-- (void)startAdvertising:(NSDictionary *)advertisementData didStart:(BBErrorBlock)didStart
+- (void)startAdvertising:(nullable NSDictionary<NSString *, id> *)advertisementData didStart:(nullable BBErrorBlock)didStart
 {
     if (self.delegate != self) {
         self.delegate = self;
@@ -182,7 +183,7 @@
     }
 }
 
-- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
+- (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(nullable NSError *)error
 {
     NSLog(@"didAddService: %@, %@", service, error);
     if (service.didAddService) {
@@ -191,7 +192,7 @@
     }
 }
 
-- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error
+- (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(nullable NSError *)error
 {
     NSLog(@"didStartAdvertising: %@, %@", peripheral, error);
     if (self.didStartAdvertising) {
@@ -235,30 +236,4 @@
 @end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+NS_ASSUME_NONNULL_END
